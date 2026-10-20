@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-20",
+  "repo_public": true,
+  "browser_app": "https://coding-dev-tools.github.io/legacy-tv-hub/app/",
+  "public_demo_ended_at_10_seconds": true,
+  "release_assets": [
+    {
+      "asset": "LegacyTVHub_0.100_USA_20261020.zip",
+      "anonymous_download_verified": true,
+      "bytes": 1485424,
+      "sha256_matches": true
+    },
+    {
+      "asset": "LegacyTVHub_portable_web_0.1.0.zip",
+      "anonymous_download_verified": true,
+      "bytes": 1484217,
+      "sha256_matches": true
+    }
+  ]
+}

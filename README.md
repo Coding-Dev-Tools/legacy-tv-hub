@@ -4,6 +4,10 @@ A shared, remote-friendly media app for older smart TVs, with separate installat
 
 **Preview 0.1. This is an app project, not universal TV firmware. It does not enable Paramount+ or upgrade a TV's browser engine or DRM.** The first native package targets Samsung's 2014 Legacy platform. Other manufacturers are in scope, but their native adapters are not implemented yet.
 
+[Open the browser app](https://coding-dev-tools.github.io/legacy-tv-hub/app/) · [Download preview packages](https://github.com/Coding-Dev-Tools/legacy-tv-hub/releases/tag/v0.1.0)
+
+The public browser build runs independently of your computer. An older TV still needs a compatible browser, TLS connection and video decoder.
+
 ![Legacy TV Hub home screen](assets/home.png)
 
 ## What the app does

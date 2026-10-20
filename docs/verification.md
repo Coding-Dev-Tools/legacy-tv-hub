@@ -31,6 +31,10 @@ Chromium browser preview:
 - Native manifest, ZIP integrity and deterministic package build.
 - HTTP byte ranges including suffix requests, HEAD, sync XML and rejection of source/traversal requests.
 
+## Public distribution
+
+The public GitHub Pages app was opened in Chromium and its complete demo reached ended=true at 10 seconds without a video error. Both public release ZIPs were downloaded anonymously and matched the published sizes and SHA-256 digests.
+
 ## Unverified
 
 Native user-widget installation, actual TV-app key delivery, app HTML-video decoding/audio, app persistence on the TV, native removal, other TV browsers/manufacturers and subscription streaming. No firmware was installed. No Paramount+ login or playback has been demonstrated.
