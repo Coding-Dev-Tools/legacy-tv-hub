@@ -6,6 +6,8 @@ Samsung's archived 2014 guide documents a local `develop` login with a blank pas
 
 After syncing, launch LegacyTVHub. Exercise arrows, OK, Return and Exit; play the full bundled demo, confirm picture and audio, save a compatible direct link, restart the app and check persistence. Then test removal using the app manager's delete option. No firmware or country/service-menu change is needed by this package.
 
+Preview 0.2 also offers **Try TV player** during playback. Press Down to focus the controls, use Left/Right to select it, and press OK. Up returns focus to the video; Left/Right then seek. **Browser player** switches back. Check the full ten-second demo in each mode, including sound, seeking, pause/resume and return home. Display & help contains read-only firmware/system information when NNavi provides it. These new native features are experimental and have not run on the research TV yet.
+
 If the developer workflow is absent, record that result. Do not label the model supported. The public guide's availability does not prove that a particular installed firmware or current backend still accepts the workflow.
 
 Sources:

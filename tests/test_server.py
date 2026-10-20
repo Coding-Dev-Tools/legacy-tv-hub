@@ -62,7 +62,9 @@ class ServerTests(unittest.TestCase):
         with zipfile.ZipFile(ROOT/release['archive']) as package:
             self.assertIsNone(package.testzip())
             self.assertIn('platform-native.js', package.namelist())
+            self.assertIn('legacy-player.js', package.namelist())
             self.assertIn('$MANAGER_WIDGET', package.read('index.html').decode('utf-8'))
+            self.assertIn('clsid:SAMSUNG-INFOLINK-PLAYER', package.read('index.html').decode('utf-8'))
 
 if __name__ == '__main__':
     unittest.main()

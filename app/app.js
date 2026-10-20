@@ -2,6 +2,7 @@
     'use strict';
     var core = window.HubCore, content, video, store, data, persistent, platform = null, nativeKeys = null;
     var view = 'home', active = null, resume = 0, lastSave = 0, editingField = 'url', caps = false;
+    var nativePlayer = null, usingTV = false, playbackGeneration = 0, runtimeInfo = null, htmlPlayIntent = false;
     var keys = {UP: 38, DOWN: 40, LEFT: 37, RIGHT: 39, ENTER: 13, RETURN: 8, EXIT: 27, PLAY: 415, PAUSE: 19, STOP: 413, FF: 417, REW: 412};
     function element(tag, className, text) {
         var node = document.createElement(tag);
@@ -122,7 +123,7 @@
         editingField = 'url'; caps = false; url.focus();
     }
     function about() {
-        begin('about', 'A useful app. Honest limits.', 'Legacy TV Hub preview 0.1 — a shared app for older TV browsers, with platform-specific installers.');
+        begin('about', 'A useful app. Honest limits.', 'Legacy TV Hub preview 0.2 — a shared app for older TV browsers, with platform-specific installers.');
         var toolbar = put(content, 'div', 'toolbar');
         button(toolbar, data.contrast ? 'Contrast: high' : 'Contrast: standard', function () {
             data.contrast = !data.contrast; document.body.className = data.contrast ? 'high-contrast' : ''; persist(); about();
@@ -133,41 +134,101 @@
         box = put(boxes, 'div', 'info-box'); put(box, 'h2', '', 'Video support'); put(box, 'p', '', 'H.264 MP4: ' + (video.canPlayType('video/mp4; codecs="avc1.42E01E, mp4a.40.2"') || 'not advertised') + '. Playback depends on the link, codec and the TV.');
         box = put(boxes, 'div', 'info-box'); put(box, 'h2', '', 'Controls'); put(box, 'p', '', 'Arrows and OK move around the app. Return goes back. During playback, Left/Right seek and OK pauses.');
         box = put(boxes, 'div', 'info-box'); put(box, 'h2', '', platform ? platform.name : 'Browser preview'); put(box, 'p', '', navigator.userAgent);
+        if (runtimeInfo) {
+            box = put(boxes, 'div', 'info-box'); put(box, 'h2', '', 'TV information');
+            put(box, 'p', '', 'Firmware: ' + runtimeInfo.firmware + '. System: ' + runtimeInfo.systemVersion + '.');
+            box = put(boxes, 'div', 'info-box'); put(box, 'h2', '', 'Additional playback option');
+            put(box, 'p', '', 'Try TV player during playback to use the built-in video engine. This preview option still needs testing on your model. Browser player remains available.');
+        }
         focusFirst();
     }
     function demo() { start({id: 'demo', title: 'Offline playback demo', url: 'media/demo.mp4', position: 0, duration: 10, played: 0}, true); }
+    function playbackState() {
+        if (!usingTV) { return video; }
+        return nativePlayer ? nativePlayer.snapshot() : {currentTime: resume, duration: 0, paused: true, ended: false};
+    }
     function remember(force) {
-        if (!active || active.id === 'demo') { return; }
+        if (!active || active.id === 'demo' || (usingTV && !nativePlayer)) { return; }
         var now = new Date().getTime();
         if (!force && now - lastSave < 5000) { return; }
         lastSave = now;
-        if (isFinite(video.currentTime)) { active.position = Math.max(0, video.currentTime); }
-        if (isFinite(video.duration)) { active.duration = Math.max(0, video.duration); }
+        var current = playbackState();
+        if (isFinite(current.currentTime)) { active.position = Math.max(0, current.currentTime); }
+        if (isFinite(current.duration)) { active.duration = Math.max(0, current.duration); }
         active.played = now; persist();
     }
     function play() {
+        if (usingTV) {
+            if (nativePlayer) { nativePlayer.play(); }
+            else { state('TV player unavailable. Choose Browser player to continue.'); }
+            return;
+        }
+        var generation = playbackGeneration;
+        htmlPlayIntent = true;
         try {
             var promise = video.play();
-            if (promise && typeof promise['catch'] === 'function') { promise['catch'](function () { state('Press Play to begin.'); }); }
+            if (promise && typeof promise['catch'] === 'function') {
+                promise['catch'](function () {
+                    if (generation === playbackGeneration && !usingTV && active && htmlPlayIntent) { htmlPlayIntent = false; state('Press Play to begin.'); }
+                });
+            }
         } catch (problem) { state('This video could not be started.'); }
     }
     function state(text) { document.getElementById('player-state').textContent = text; }
-    function toggle() { if (video.paused || video.ended) { play(); } else { video.pause(); } }
+    function pause() { if (usingTV && nativePlayer) { nativePlayer.pause(); } else { htmlPlayIntent = false; video.pause(); } }
+    function toggle() { var current = playbackState(); if (current.paused || current.ended) { play(); } else { pause(); } }
     function seek(amount) {
+        if (usingTV) { if (nativePlayer) { nativePlayer.seek(amount); } return; }
         try { if (isFinite(video.duration)) { video.currentTime = Math.max(0, Math.min(video.duration, video.currentTime + amount)); } }
         catch (ignored) { state('Seeking unavailable for this video.'); }
     }
     function closePlayer() {
-        remember(true); video.pause(); video.removeAttribute('src'); video.load(); active = null;
+        remember(true); playbackGeneration += 1; htmlPlayIntent = false;
+        if (nativePlayer) { nativePlayer.close(); nativePlayer = null; }
+        usingTV = false; document.documentElement.className = '';
+        video.pause(); video.removeAttribute('src'); video.load(); active = null;
         document.getElementById('player-screen').className = 'hidden'; document.getElementById('shell').className = ''; home();
     }
-    function start(item, fromBeginning) {
-        active = item; resume = fromBeginning ? 0 : core.resumeAt(item); lastSave = 0; view = 'player';
+    function updateProgress(current) {
+        var duration = isFinite(current.duration) ? current.duration : 0;
+        document.getElementById('play-time').textContent = core.time(current.currentTime) + ' / ' + core.time(duration);
+        document.getElementById('played').style.width = (duration ? Math.max(0, Math.min(100, 100 * current.currentTime / duration)) : 0) + '%';
+    }
+    function start(item, fromBeginning, preferTV, position) {
+        playbackGeneration += 1; htmlPlayIntent = false;
+        if (nativePlayer) { nativePlayer.close(); nativePlayer = null; }
+        video.pause(); video.removeAttribute('src'); video.load();
+        usingTV = !!preferTV;
+        document.documentElement.className = usingTV ? 'tv-playback' : '';
+        active = item; resume = typeof position === 'number' && isFinite(position) ? Math.max(0, position) : (fromBeginning ? 0 : core.resumeAt(item)); lastSave = 0; view = 'player';
         content.className = ''; document.getElementById('shell').className = 'hidden'; document.getElementById('player-screen').className = '';
         document.getElementById('player-title').textContent = item.title;
         var controls = document.getElementById('player-buttons'); controls.innerHTML = '';
         button(controls, 'Play / pause', toggle); button(controls, '−10 seconds', function () { seek(-10); }); button(controls, '+10 seconds', function () { seek(10); }); button(controls, 'Close', closePlayer);
-        state('Loading…'); video.src = item.url; video.load(); play(); focusFirst();
+        if (platform && platform.createTVPlayer) {
+            button(controls, usingTV ? 'Browser player' : 'Try TV player', function () {
+                var position = Number(playbackState().currentTime) || 0;
+                remember(true); start(active, false, !usingTV, position);
+            });
+        }
+        updateProgress({currentTime: resume, duration: 0}); state('Loading…');
+        if (usingTV) {
+            var generation = playbackGeneration;
+            try {
+                nativePlayer = platform.createTVPlayer(function (type, current) {
+                    if (!usingTV || generation !== playbackGeneration || !active || view !== 'player') { return; }
+                    if (type === 'playing') { state('Playing'); }
+                    else if (type === 'waiting') { state('Buffering…'); }
+                    else if (type === 'pause') { state('Paused'); remember(true); }
+                    else if (type === 'ended') { state('Finished'); remember(true); }
+                    else if (type === 'error') { document.documentElement.className = ''; state('TV player could not play this video. Try Browser player.'); }
+                    if (type === 'timeupdate' || type === 'loadedmetadata') { updateProgress(current); remember(false); }
+                });
+                var link = document.createElement('a'); link.href = item.url;
+                nativePlayer.load(link.href, resume); resume = 0; nativePlayer.play();
+            } catch (ignoredNativePlayer) { document.documentElement.className = ''; state('TV player unavailable. Choose Browser player to continue.'); }
+        } else { video.src = item.url; video.load(); play(); }
+        document.getElementById('player-screen').focus();
     }
     function block(event) {
         if (event.preventDefault) { event.preventDefault(); }
@@ -175,14 +236,19 @@
     }
     function onKey(event) {
         var code = event.keyCode || event.which, name, input = document.activeElement && document.activeElement.tagName === 'INPUT';
-        if (code === keys.EXIT && platform && platform.exit) { remember(true); video.pause(); block(event); platform.exit(); return; }
+        if (code === keys.EXIT && platform && platform.exit) { remember(true); if (nativePlayer) { nativePlayer.close(); } video.pause(); block(event); platform.exit(); return; }
         if (view === 'player') {
+            var controlFocused = document.activeElement && document.activeElement.parentNode === document.getElementById('player-buttons');
             if (code === keys.RETURN || code === 27) { block(event); closePlayer(); }
-            else if (code === keys.ENTER || code === 32) { block(event); toggle(); }
+            else if (code === keys.DOWN) { block(event); if (!controlFocused) { focusFirst(); } }
+            else if (code === keys.UP && controlFocused) { block(event); document.getElementById('player-screen').focus(); }
+            else if ((code === keys.LEFT || code === keys.RIGHT) && controlFocused) { block(event); move(code === keys.LEFT ? 'LEFT' : 'RIGHT'); }
+            else if (code === keys.ENTER) { block(event); if (controlFocused) { document.activeElement.click(); } else { toggle(); } }
+            else if (code === 32) { block(event); toggle(); }
             else if (code === keys.LEFT || code === keys.REW) { block(event); seek(-10); }
             else if (code === keys.RIGHT || code === keys.FF) { block(event); seek(10); }
             else if (code === keys.PLAY) { block(event); play(); }
-            else if (code === keys.PAUSE) { block(event); video.pause(); }
+            else if (code === keys.PAUSE) { block(event); pause(); }
             else if (code === keys.STOP) { block(event); closePlayer(); }
             return;
         }
@@ -215,21 +281,20 @@
                 nativeKeys = platform.keys();
                 var name; for (name in keys) { if (keys.hasOwnProperty(name) && typeof nativeKeys[name] === 'number') { keys[name] = nativeKeys[name]; } }
                 platform.ready();
+                if (platform.runtimeInfo) { runtimeInfo = platform.runtimeInfo(); }
             }
         } catch (ignoredNative) { platform = null; }
-        video.addEventListener('loadedmetadata', function () { if (resume) { try { video.currentTime = resume; } catch (ignored) {} resume = 0; } }, false);
-        video.addEventListener('playing', function () { state('Playing'); }, false);
-        video.addEventListener('pause', function () { state(video.ended ? 'Finished' : 'Paused'); remember(true); }, false);
-        video.addEventListener('waiting', function () { state('Buffering…'); }, false);
-        video.addEventListener('ended', function () { state('Finished'); remember(true); }, false);
-        video.addEventListener('error', function () { state('Cannot play this link on this TV. Return to choose another.'); }, false);
+        video.addEventListener('loadedmetadata', function () { if (!usingTV && resume) { try { video.currentTime = resume; } catch (ignored) {} resume = 0; } }, false);
+        video.addEventListener('playing', function () { if (!usingTV && active) { state('Playing'); } }, false);
+        video.addEventListener('pause', function () { if (!usingTV && active) { state(video.ended ? 'Finished' : 'Paused'); remember(true); } }, false);
+        video.addEventListener('waiting', function () { if (!usingTV && active) { state('Buffering…'); } }, false);
+        video.addEventListener('ended', function () { if (!usingTV && active) { state('Finished'); remember(true); } }, false);
+        video.addEventListener('error', function () { if (!usingTV && active) { state('Cannot play this link on this TV. Return to choose another.'); } }, false);
         video.addEventListener('timeupdate', function () {
-            var duration = isFinite(video.duration) ? video.duration : 0;
-            document.getElementById('play-time').textContent = core.time(video.currentTime) + ' / ' + core.time(duration);
-            document.getElementById('played').style.width = (duration ? Math.max(0, Math.min(100, 100 * video.currentTime / duration)) : 0) + '%'; remember(false);
+            if (!usingTV && active) { updateProgress(video); remember(false); }
         }, false);
         document.addEventListener('keydown', onKey, false); window.onresize = fit;
-        window.addEventListener('beforeunload', function () { remember(true); }, false);
+        window.addEventListener('beforeunload', function () { remember(true); if (nativePlayer) { nativePlayer.close(); } }, false);
         document.body.className = data.contrast ? 'high-contrast' : ''; home(); fit(); clock(); window.setInterval(clock, 30000);
         notice(persistent ? 'Stored locally. No account needed.' : 'Changes are kept for this session only.');
     }

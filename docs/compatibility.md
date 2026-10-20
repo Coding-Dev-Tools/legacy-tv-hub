@@ -1,6 +1,6 @@
 # Feature status and acceptance
 
-Assessment date: October 20, 2026. Target tested: Samsung UN55HU7250 / 2014 Legacy platform. Preview 0.1 does **not** meet the requirement to replace modern TV software or run all modern streaming services. Other TV platforms need their own verified installation and runtime support.
+Assessment date: October 20, 2026. Target tested: Samsung UN55HU7250 / 2014 Legacy platform. Preview 0.2 does **not** meet the requirement to replace modern TV software or run all modern streaming services. Other TV platforms need their own verified installation and runtime support.
 
 The status labels below distinguish existing functions from future development. "Blocked" means there is no demonstrated implementation within the current software-only, no-permanent-PC constraint; it is not a claim that future vendor cooperation is impossible.
 
@@ -14,6 +14,7 @@ The status labels below distinguish existing functions from future development. 
 | Casting compatible direct media through the existing DLNA renderer | **Available now for the tested clip** | The physical TV fetched the 10-second H.264/AAC file and reported full-duration playback. This does not establish general codec coverage, Chromecast, AirPlay, screen mirroring or protected service casting. A network media source must be independently available for ongoing use. |
 | Direct-video library, resume, remote-friendly interface and contrast | **Custom development feasible; prototype available** | Shared ES5 app and Samsung Legacy package exist. Desktop browser behavior is verified. Native installation, TV key delivery, local storage and the app's HTML-video player still require physical-TV validation. |
 | Broader media playback | **Custom development feasible within existing decoder limits** | Direct links can be tested individually. No new codec, hardware decoder or DRM capability has been added. The TV's DLNA renderer test does not prove the widget's HTML player works. |
+| Samsung native playback and firmware identification | **Custom development feasible; experimental bridge built** | Preview 0.2 adds the existing Legacy PLAYER plugin and read-only NNavi version queries. Contract and explicitly labeled desktop simulation checks pass. Native execution, duration units, picture/audio and firmware results still require measurement on the TV. See [implementation and limits](native-player.md). |
 | New picture/audio hardware capabilities | **Blocked** | No firmware or driver change was installed; no new panel, HDMI or audio capability is supplied by this app. Existing TV settings remain the applicable controls. |
 | Native support for other TV manufacturers | **Custom development feasible only where a usable runtime/install path exists** | The browser core is shared; the Samsung Legacy adapter is the only native package currently implemented. See [adapter boundaries](adapters.md). No other manufacturer has passed hardware acceptance. |
 

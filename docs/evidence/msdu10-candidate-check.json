@@ -1,0 +1,52 @@
+{
+  "source": "https://github.com/theubusu/unixtract",
+  "source_commit": "144cf51e3e1b6e832119fde60f676a6def8266f7",
+  "scope": "Offline TOC test using the seven published MSD10 candidates only; no key recovery or device changes",
+  "target": "T-NT14UAKUC 1320.0",
+  "candidate_count": 7,
+  "matching_candidates": [],
+  "results": [
+    {
+      "published_name": "EchoP",
+      "method": "pre-Tizen derivation",
+      "padding_valid": false,
+      "structured_header_valid": false
+    },
+    {
+      "published_name": "X12",
+      "method": "pre-Tizen derivation",
+      "padding_valid": false,
+      "structured_header_valid": false
+    },
+    {
+      "published_name": "FoxB",
+      "method": "pre-Tizen derivation",
+      "padding_valid": false,
+      "structured_header_valid": false
+    },
+    {
+      "published_name": "X14",
+      "method": "pre-Tizen derivation",
+      "padding_valid": false,
+      "structured_header_valid": false
+    },
+    {
+      "published_name": "NT14M",
+      "method": "pre-Tizen derivation",
+      "padding_valid": false,
+      "structured_header_valid": false
+    },
+    {
+      "published_name": "HawkM",
+      "method": "Tizen derivation",
+      "padding_valid": false,
+      "structured_header_valid": false
+    },
+    {
+      "published_name": "HawkP",
+      "method": "Tizen derivation",
+      "padding_valid": false,
+      "structured_header_valid": false
+    }
+  ]
+}

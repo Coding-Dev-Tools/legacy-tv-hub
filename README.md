@@ -2,11 +2,11 @@
 
 A shared, remote-friendly media app for older smart TVs, with separate installation adapters for each platform.
 
-**Preview 0.1. This is an app project, not universal TV firmware. It does not enable Paramount+ or upgrade a TV's browser engine or DRM.** The first native package targets Samsung's 2014 Legacy platform. Other manufacturers are in scope, but their native adapters are not implemented yet.
+**Preview 0.2. This is an app project, not universal TV firmware. It does not enable Paramount+ or upgrade a TV's browser engine or DRM.** The first native package targets Samsung's 2014 Legacy platform. Other manufacturers are in scope, but their native adapters are not implemented yet.
 
-[Open the browser app](https://coding-dev-tools.github.io/legacy-tv-hub/app/) · [Download preview packages](https://github.com/Coding-Dev-Tools/legacy-tv-hub/releases/tag/v0.1.0)
+[Open the browser app](https://coding-dev-tools.github.io/legacy-tv-hub/app/) · [Download preview packages](https://github.com/Coding-Dev-Tools/legacy-tv-hub/releases/tag/v0.2.0)
 
-**Modern streaming replacement acceptance: not met.** See the [feature matrix](docs/compatibility.md) and [latest test results](docs/verification.md#october-20-retest-of-the-published-release). Passing the demo does not establish subscription-service compatibility.
+**Modern streaming replacement acceptance: not met.** See the [feature matrix](docs/compatibility.md) and [latest test results](docs/verification.md#preview-02-native-player-development). Passing the demo does not establish subscription-service compatibility.
 
 The public browser build runs independently of your computer. An older TV still needs a compatible browser, TLS connection and video decoder.
 
@@ -19,6 +19,7 @@ The public browser build runs independently of your computer. An older TV still 
 - An on-screen keyboard for entering links with a TV remote.
 - Play/pause, seeking, clear playback errors and high contrast mode.
 - A bundled offline video for checking playback.
+- An optional Samsung Legacy native-player bridge, with remote-accessible browser fallback, and read-only firmware information. Both native APIs still need physical-TV validation; see [adapter details](docs/native-player.md).
 - No account, analytics, CDN scripts or runtime package dependencies.
 
 The app plays formats the existing TV player supports. A streaming service's website URL is not a direct video URL. Subscription playback requires the service's authorized integration and supported content protection.
@@ -51,7 +52,7 @@ Open the localhost URL printed by the server. It stops after 15 minutes; Ctrl+C 
 
 ## Samsung 2014 native package
 
-`python build.py` produces `LegacyTVHub_0.100_USA_20261020.zip` and its SHA-256 manifest in `release.json`. It is a Legacy user widget, not a Tizen WGT, Android APK, USB firmware update or replacement for Smart Hub.
+`python build.py` produces `LegacyTVHub_0.200_USA_20261020.zip` and its SHA-256 manifest in `release.json`. It is a Legacy user widget, not a Tizen WGT, Android APK, USB firmware update or replacement for Smart Hub.
 
 Run the short-lived sync server with your TV's local IPv4 address:
 

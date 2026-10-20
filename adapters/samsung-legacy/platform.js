@@ -13,6 +13,22 @@
             return output;
         },
         ready: function () { widget.sendReadyEvent(); },
+        createTVPlayer: function (notify) {
+            if (!root.HubLegacyPlayer) { throw new Error('TV player adapter is unavailable.'); }
+            return root.HubLegacyPlayer.create(document.getElementById('hub-native-player'), notify);
+        },
+        runtimeInfo: function () {
+            var info = {firmware: 'Unavailable', systemVersion: 'Unavailable'}, plugin;
+            try {
+                plugin = document.getElementById('hub-native-info');
+                if (plugin.Open('NNavi', '1.016', 'NNavi') === false) { return info; }
+                var firmware = plugin.Execute('GetFirmware');
+                if (typeof firmware === 'string' && /^T-[A-Za-z0-9_.-]{1,90}$/.test(firmware)) { info.firmware = firmware; }
+                var systemVersion = plugin.Execute('GetSystemVersion', 0);
+                if (typeof systemVersion === 'string') { info.systemVersion = systemVersion.replace(/[\u0000-\u001f]/g, '').slice(0, 100); }
+            } catch (ignored) {}
+            return info;
+        },
         blockNavigation: function (event) { widget.blockNavigation(event); },
         returnToHub: function () { widget.sendReturnEvent(); },
         exit: function () { widget.sendExitEvent(); }

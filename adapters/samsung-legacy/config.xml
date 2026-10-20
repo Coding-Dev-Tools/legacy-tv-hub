@@ -9,7 +9,7 @@
  <BigListIcon itemtype="string">icons/95.png</BigListIcon>
  <category itemtype="Video">Videos</category>
  <autoUpdate itemtype="boolean">n</autoUpdate>
- <ver itemtype="string">0.100</ver>
+ <ver itemtype="string">0.200</ver>
  <fullwidget itemtype="boolean">y</fullwidget>
  <type itemtype="string">user</type>
  <srcctl itemtype="boolean">y</srcctl>

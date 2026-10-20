@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "date_utc": "2026-10-20",
+  "release": "v0.2.0",
+  "target": "Samsung UN55HU7250, 2014 Legacy platform",
+  "overall_modern_streaming_replacement": "not_met",
+  "firmware_installed": false,
+  "replacement_os_built": false,
+  "native_widget_execution_verified": false,
+  "native_player_execution_verified": false,
+  "installed_firmware_identifier_obtained": false,
+  "subscription_services_implemented": [],
+  "subscription_services_login_and_playback_verified": [],
+  "checks": [
+    {"name": "javascript_state_and_storage_cases", "result": "pass", "scope": "local Node.js"},
+    {"name": "native_bridge_contract", "result": "pass", "scope": "mock plugin only; not Samsung hardware"},
+    {"name": "application_scripts_es5_grammar", "result": "pass", "scope": "Acorn parser; not TV runtime support"},
+    {"name": "python_tests", "result": "pass", "test_methods": 12, "scope": "local read-only firmware inspector and temporary package/HTTP server"},
+    {
+      "name": "current_browser_demo",
+      "result": "pass",
+      "scope": "real MP4 in desktop Chromium; not the TV browser",
+      "immediate_pause_state_correct": true,
+      "current_time_seconds": 10,
+      "duration_seconds": 10,
+      "ended": true,
+      "video_error": null,
+      "return_home": true
+    },
+    {
+      "name": "native_ui_simulation",
+      "result": "pass",
+      "scope": "labeled desktop mock; not a hardware test",
+      "remote_only_player_selection": true,
+      "pause_holds": true,
+      "paused_seek_keeps_pause_state": true,
+      "completion_and_replay": true,
+      "switch_back_to_html": true,
+      "unavailable_plugin_visible_error_and_fallback": true
+    },
+    {
+      "name": "prior_test_installer_window",
+      "result": "no_tv_activity",
+      "tv_manifest_fetches": 0,
+      "tv_package_fetches": 0,
+      "tv_startup_results": 0
+    },
+    {
+      "name": "blank_screen_followup",
+      "checked_utc": "2026-10-20T10:06:03Z",
+      "result": "network_state_only",
+      "source": "HDMI1",
+      "renderer_state": "NO_MEDIA_PRESENT",
+      "renderer_status": "OK",
+      "visible_screen_confirmed": false
+    },
+    {"name": "latest_tv_identity_attempt", "checked_utc": "2026-10-20T10:21:44Z", "result": "timeout"},
+    {"name": "physical_tv_dlna_evidence", "result": "prior_preview_0.1_only", "record": "test-results-2026-10-20.json", "native_widget_test": false},
+    {"name": "paramount_plus", "result": "not_implemented_and_not_tested"}
+  ]
+}

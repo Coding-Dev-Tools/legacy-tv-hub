@@ -1,6 +1,6 @@
 # Verification record
 
-Date: October 20, 2026. Preview 0.1.
+Date: October 20, 2026. Records for previews 0.1 and 0.2.
 
 ## Physical TV
 
@@ -56,6 +56,25 @@ An instrumented, removable test widget was prepared privately using the same pro
 The [machine-readable summary](test-results-2026-10-20.json) records the measured checks and their scope.
 
 ![Desktop Chromium demo completed at 10 seconds; this is not a photograph or screenshot of the TV](../assets/desktop-demo-finished.jpg)
+
+## Preview 0.2 native player development
+
+The new native bridge and read-only firmware information are implemented, but native installation/execution still have no successful TV result. The target became reachable and identified correctly again; after the reported blank screen, an Exit command was sent and network queries reported HDMI1 with no renderer media present and status OK. The temporary test installer subsequently stopped with **zero manifest fetches, zero package fetches and zero startup results from the TV**. A later identity request timed out. None of this proves installation, a firmware update or a repaired display.
+
+| Check | Result | Scope |
+| --- | --- | --- |
+| JavaScript state, native bridge and ES5 checks | PASS | Native API contracts use a mock plugin, including synchronous failures and callbacks after pause/close. No hardware API execution is implied. |
+| Python tests | PASS, 12 methods | Nine read-only firmware-inspection cases and three package/server cases. |
+| Reproducible native/portable packages | PASS | Source line endings are normalized; package contents and hashes are recorded in `release.json`. |
+| Real bundled video in current browser app | PASS in desktop Chromium | Immediate pause stayed Paused, playback resumed and reached 10/10 seconds with `ended=true`, `error=null`; Return/Escape restored home. |
+| Remote access to native-player and fallback buttons | PASS in labeled desktop simulation | Down focused controls, Left/Right selected the player button and OK switched. Pause held its position, paused seeking retained Paused, replay reached completion, and Browser player switched back. |
+| Absent native API | PASS in labeled desktop simulation | A visible error and opaque background remained usable; remote keys selected Browser player and the real HTML demo completed. |
+| Native Samsung PLAYER, NNavi firmware query, install/restart/removal | NOT VERIFIED | The TV has not downloaded or started the instrumented app. |
+| New OS/browser or authorized subscription playback | NOT IMPLEMENTED / NOT TESTED | No modern service is claimed to work. |
+
+The [0.2 machine-readable record](test-results-0.2.0.json) separates the desktop simulation from the real browser clip and prior physical-TV DLNA evidence. See the [new component's design and hardware acceptance](native-player.md).
+
+![Preview 0.2 demo finished in desktop Chromium; not the TV](../assets/desktop-v02-demo-finished.jpg)
 
 ## Unverified
 
