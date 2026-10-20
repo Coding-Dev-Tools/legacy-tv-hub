@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.samsung.com/">
+ <cpname itemtype="string"/>
+ <cplogo itemtype="string"/>
+ <cpauthjs itemtype="string"/>
+ <ThumbIcon itemtype="string">icons/106.png</ThumbIcon>
+ <BigThumbIcon itemtype="string">icons/115.png</BigThumbIcon>
+ <ListIcon itemtype="string">icons/85.png</ListIcon>
+ <BigListIcon itemtype="string">icons/95.png</BigListIcon>
+ <category itemtype="Video">Videos</category>
+ <autoUpdate itemtype="boolean">n</autoUpdate>
+ <ver itemtype="string">0.100</ver>
+ <fullwidget itemtype="boolean">y</fullwidget>
+ <type itemtype="string">user</type>
+ <srcctl itemtype="boolean">y</srcctl>
+ <ticker itemtype="boolean">n</ticker>
+ <childlock itemtype="boolean">n</childlock>
+ <videomute itemtype="boolean">y</videomute>
+ <dcont itemtype="boolean">y</dcont>
+ <widgetname itemtype="string">LegacyTVHub</widgetname>
+ <description itemtype="string">Remote-friendly direct video player with favorites and resume. Preview; not firmware.</description>
+ <width itemtype="string">1280</width><height itemtype="string">720</height>
+ <author itemtype="group"><name itemtype="string">Local TV Research</name></author>
+</widget>

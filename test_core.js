@@ -1,0 +1,27 @@
+/* Meaningful recovery, persistence and resume cases. Run with node test_core.js. */
+'use strict';
+var assert = require('assert'), core = require('./app/core.js'), memory = {};
+var storage = {getItem: function (key) { return memory[key] || null; }, setItem: function (key, value) { memory[key] = value; }};
+var data = core.load(storage).data;
+var item = core.add(data, '<My home video>', 'http://192.168.1.10/video.mp4');
+item.position = 61; item.duration = 300;
+assert.strictEqual(core.save(storage, data), true);
+var reloaded = core.load(storage).data;
+assert.strictEqual(reloaded.items[0].title, '<My home video>');
+assert.strictEqual(core.resumeAt(reloaded.items[0]), 61);
+reloaded.items[0].position = 299;
+assert.strictEqual(core.resumeAt(reloaded.items[0]), 0);
+reloaded.items[0].position = 4;
+assert.strictEqual(core.resumeAt(reloaded.items[0]), 0);
+core.add(data, 'Renamed', 'http://192.168.1.10/video.mp4');
+assert.strictEqual(data.items.length, 1);
+assert.strictEqual(data.items[0].title, 'Renamed');
+['javascript:alert(1)', 'data:text/html,bad', '/relative.mp4', 'https://user:password@example.com/video.mp4', 'https://example.com/a b.mp4'].forEach(function (url) { assert.throws(function () { core.videoURL(url); }); });
+assert.strictEqual(core.videoURL(' https://example.com/video.mp4?x=1&y=2 '), 'https://example.com/video.mp4?x=1&y=2');
+memory[core.key] = '{broken';
+assert.strictEqual(core.load(storage).data.items.length, 0);
+assert.strictEqual(core.save({setItem: function () { throw new Error('Full'); }}, data), false);
+assert.strictEqual(core.load(null).persistent, false);
+assert.strictEqual(core.normalize({version: 1, items: [{url: 'https://example.com/a.mp4', position: Infinity, duration: -10}]}).items[0].position, 0);
+assert.strictEqual(core.time(Infinity), '0:00');
+console.log('PASS: persistence, resume boundaries, duplicate handling, URL rejection, damaged storage and unavailable storage.');

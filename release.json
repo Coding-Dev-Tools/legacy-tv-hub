@@ -1,0 +1,18 @@
+{
+  "name": "Legacy TV Hub",
+  "version": "0.100",
+  "archive": "LegacyTVHub_0.100_USA_20261020.zip",
+  "bytes": 1485424,
+  "sha256": "4c7f583202d75fe5cfb7f9c165af6e5d1d0f669c967ab00dec1771dc0972a8b9",
+  "platform_target": "Samsung 2014 Legacy user application",
+  "release_status": "Preview. Native TV installation and HTML player execution have not been validated.",
+  "firmware": false,
+  "enables_paramount_plus": false,
+  "permanent_pc_required_after_native_install": false,
+  "portable_web": {
+    "archive": "LegacyTVHub_portable_web_0.1.0.zip",
+    "bytes": 1484217,
+    "sha256": "41ff108545b78e67d518e7509bb1ff9c8f8e70f2873deb0cf510f6ad3c334c0f",
+    "status": "Browser app; requires a compatible browser and independent hosting or a native installation adapter."
+  }
+}

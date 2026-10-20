@@ -1,0 +1,28 @@
+name: TV compatibility report
+description: Report actual installation, remote input, playback and removal results
+title: "[Compatibility] Manufacturer and model"
+body:
+  - type: markdown
+    attributes:
+      value: "Omit serial numbers, MAC addresses, Wi-Fi names, pairing codes, tokens and account information."
+  - type: textarea
+    id: device
+    attributes:
+      label: TV model and platform
+      description: Model, year, country, firmware version and app release tested
+    validations:
+      required: true
+  - type: textarea
+    id: install
+    attributes:
+      label: Installation and removal
+      description: Exact supported workflow used and whether both installation and removal completed
+    validations:
+      required: true
+  - type: textarea
+    id: results
+    attributes:
+      label: Actual results
+      description: Remote keys, complete demo picture/audio, direct media playback, persistence after restart, failures
+    validations:
+      required: true

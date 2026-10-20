@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=1280, initial-scale=1"><title>Legacy TV Hub</title>
+<link rel="stylesheet" href="style.css">
+</head><body>
+<div id="shell">
+  <header><div class="brand"><span class="brand-icon">L</span> Legacy TV Hub</div><span id="clock"></span><div class="release">Preview 0.1 · Direct video player</div></header>
+  <main id="content" aria-live="polite"></main>
+  <footer><span><b>Arrows</b> Move &nbsp; <b>OK</b> Select &nbsp; <b>Return</b> Back</span><span id="notice">Ready</span></footer>
+</div>
+<section id="player-screen" class="hidden" aria-label="Video player">
+  <video id="video" preload="metadata"></video>
+  <div class="player-top"><span id="player-title"></span><span id="player-state"></span></div>
+  <div class="player-bottom"><div id="timeline"><div id="played"></div></div><p id="play-time">0:00 / 0:00</p><div id="player-buttons"></div><p>Left / Right: seek 10 seconds &nbsp; OK: play or pause &nbsp; Return: close</p></div>
+</section>
+<script src="core.js"></script><script src="app.js"></script>
+</body></html>

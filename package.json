@@ -1,0 +1,9 @@
+{
+  "name": "legacy-tv-hub",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Portable media app and platform adapters for older smart TVs",
+  "license": "MIT",
+  "scripts": {"test": "node test_core.js && node check_es5.js"},
+  "devDependencies": {"acorn": "8.15.0"}
+}
