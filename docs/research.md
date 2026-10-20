@@ -10,6 +10,8 @@ Samsung documents 2014 as Legacy, with generation-level WebKit 537.42 and PlayRe
 
 Across manufacturers, retain the distinction between an app, an updated browser engine, certified protected playback, and flashable OS firmware. A working shared app is not evidence for the other three.
 
+The follow-up [OS replacement investigation](os-replacement.md) records the H-series root candidate, a failed bounded decryption trial and a reproducible offline container inspector. No replacement operating system has been built or booted on the TV.
+
 Sources:
 
 - [Samsung model support](https://www.samsung.com/latin/support/model/UN55HU7250FXZA/)

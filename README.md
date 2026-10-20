@@ -77,3 +77,5 @@ The optional GitHub Actions template is in `docs/ci-checks.yml`; it is not enabl
 Use the compatibility-report issue template. Include model, year, country, platform, app version, install method, actual remote keys, complete video test and removal result. Omit serial numbers, MAC addresses, Wi-Fi names, account data, pairing codes and tokens. Native packaging adapters should be isolated from the shared app, with their own repeatable installation and removal instructions.
 
 The [research summary](docs/research.md) records the current firmware/DRM boundary. MIT licensed; see [LICENSE](LICENSE).
+
+For actual OS replacement research, see the [candidate methods and missing components](docs/os-replacement.md). A read-only MSDU10 container inspector is included in `tools/inspect_firmware.py`; it does not produce or install firmware.

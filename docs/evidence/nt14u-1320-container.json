@@ -1,0 +1,83 @@
+{
+  "format": "MSDU10",
+  "bytes": 899539310,
+  "sha256": "018dc05ccae4e0e0c7e9b0b0f1d1dc1067ae02ba8486b56ec91cb78695ef8beb",
+  "declared_model_family": "T-NT14UAKUC",
+  "section_count": 10,
+  "sections": [
+    {
+      "id": 1,
+      "offset": 1586,
+      "bytes": 409771304,
+      "prefix_hex": "1a2c91bf5994c32ca15b9912474e02b9"
+    },
+    {
+      "id": 2,
+      "offset": 409772890,
+      "bytes": 1024,
+      "prefix_hex": "19205d3b50c65b0365abc1b5e1251401"
+    },
+    {
+      "id": 3,
+      "offset": 409773914,
+      "bytes": 5764264,
+      "prefix_hex": "a9c5da3b60f60ba5ea36f60884b36c20"
+    },
+    {
+      "id": 4,
+      "offset": 415538178,
+      "bytes": 1024,
+      "prefix_hex": "27358a753155dfa568086b798b34699e"
+    },
+    {
+      "id": 5,
+      "offset": 415539202,
+      "bytes": 3696072,
+      "prefix_hex": "303900c7f531aec279239e78ab0224c3"
+    },
+    {
+      "id": 6,
+      "offset": 419235274,
+      "bytes": 524456,
+      "prefix_hex": "61f01e28a0171a9e2035f7e4837a91dc"
+    },
+    {
+      "id": 7,
+      "offset": 419759730,
+      "bytes": 524456,
+      "prefix_hex": "787996d18ea5b7038e0f42f4f2082b88"
+    },
+    {
+      "id": 8,
+      "offset": 420284186,
+      "bytes": 478926248,
+      "prefix_hex": "7e9ae94f4e70fd6e9bc69e6ad05e8212"
+    },
+    {
+      "id": 9,
+      "offset": 899210434,
+      "bytes": 327848,
+      "prefix_hex": "8f621b4b747fa3882d3d5f404ee92c4e"
+    },
+    {
+      "id": 10,
+      "offset": 899538282,
+      "bytes": 1024,
+      "prefix_hex": "181c24ecafb040d9d2202cdb2e63ce20"
+    }
+  ],
+  "toc": {
+    "id": 1,
+    "offset": 162,
+    "bytes": 1424,
+    "prefix_hex": "53616c7465645f5f93e688c997837f68",
+    "openssl_salted_marker": true
+  },
+  "assessment": {
+    "decrypted": false,
+    "signature_verified": false,
+    "boot_compatibility": "not_established",
+    "installation_supported": false,
+    "interpretation": "Container layout only; no conclusion about signing enforcement or flashability."
+  }
+}
