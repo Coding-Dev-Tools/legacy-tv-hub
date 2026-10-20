@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "date_utc": "2026-10-20",
+  "release": "v0.1.0",
+  "target": "Samsung UN55HU7250, 2014 Legacy platform",
+  "overall_modern_streaming_replacement": "not_met",
+  "firmware_installed": false,
+  "native_widget_execution_verified": false,
+  "subscription_services_implemented": [],
+  "subscription_services_login_and_playback_verified": [],
+  "checks": [
+    {"name": "javascript_state_and_storage_cases", "result": "pass", "scope": "local Node.js"},
+    {"name": "application_scripts_es5_grammar", "result": "pass", "scope": "Acorn parser; not proof of a particular TV's runtime APIs"},
+    {"name": "python_http_and_package_tests", "result": "pass", "test_methods": 3, "scope": "local temporary installation/preview server"},
+    {
+      "name": "rebuilt_packages_match_published_release",
+      "result": "pass",
+      "sha256": {
+        "native": "4c7f583202d75fe5cfb7f9c165af6e5d1d0f669c967ab00dec1771dc0972a8b9",
+        "portable": "41ff108545b78e67d518e7509bb1ff9c8f8e70f2873deb0cf510f6ad3c334c0f"
+      }
+    },
+    {
+      "name": "public_browser_demo",
+      "result": "pass",
+      "scope": "desktop Chromium; not TV browser or native widget",
+      "current_time_seconds": 10,
+      "duration_seconds": 10,
+      "ended": true,
+      "video_error": null,
+      "keyboard_start_and_return_home": true
+    },
+    {
+      "name": "physical_tv_dlna_demo",
+      "checked_utc": "2026-10-20T07:58:52Z",
+      "result": "pass_api_level",
+      "demo_identical_to_published_native_zip": true,
+      "tv_fetched_media": true,
+      "clock_progressed": true,
+      "final_transport_state": "STOPPED",
+      "final_transport_status": "OK",
+      "final_position_seconds": 10,
+      "duration_seconds": 10,
+      "source_restored": true,
+      "temporary_media_server_stopped": true,
+      "picture_and_audio_confirmed_by_person": false,
+      "native_widget_html_player_test": false
+    },
+    {"name": "remote_browser_launch", "result": "unsupported", "device_result": "NOTOK_NotSupport"},
+    {"name": "native_widget_runtime", "result": "not_verified", "reason": "On-TV developer synchronization and launch have not been completed and confirmed."},
+    {"name": "paramount_plus", "result": "not_implemented_and_not_tested"}
+  ]
+}

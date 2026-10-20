@@ -6,6 +6,8 @@ A shared, remote-friendly media app for older smart TVs, with separate installat
 
 [Open the browser app](https://coding-dev-tools.github.io/legacy-tv-hub/app/) · [Download preview packages](https://github.com/Coding-Dev-Tools/legacy-tv-hub/releases/tag/v0.1.0)
 
+**Modern streaming replacement acceptance: not met.** See the [feature matrix](docs/compatibility.md) and [latest test results](docs/verification.md#october-20-retest-of-the-published-release). Passing the demo does not establish subscription-service compatibility.
+
 The public browser build runs independently of your computer. An older TV still needs a compatible browser, TLS connection and video decoder.
 
 ![Legacy TV Hub home screen](assets/home.png)
