@@ -1,0 +1,42 @@
+{
+  "date_utc": "2026-10-21",
+  "model": "UN55HU7250",
+  "model_family": "14_NT14U_2D_BT",
+  "identity_check_utc": "2026-10-21T06:47:13Z",
+  "identity_http_status": 200,
+  "firmware_version_api": "Unknown",
+  "firmware_version_owner_report": "1330",
+  "gui_view": {
+    "checked_utc": "2026-10-21T06:49:39Z",
+    "advertised_support": "Yes",
+    "advertised_screen_share_drm_types": "HDCP,PrivateTZ",
+    "flag_tested": "Normal",
+    "transport_tested": "PrivateTZ",
+    "http_status": 200,
+    "result": "NOTOK_OtherMode",
+    "stream_url_returned": false,
+    "screen_image_obtained": false,
+    "media_downloaded": false,
+    "source_change_command_sent": false
+  },
+  "browser_instance": {
+    "launch_http_status": 201,
+    "launch_execution_verified_in_this_test": false,
+    "run_path_returned_by_launch": "/ws/apps/WebBrowser/run",
+    "delete_used_advertised_multiscreen_port": true,
+    "delete_checked_utc": "2026-10-21T06:53:37Z",
+    "delete_http_status": 404,
+    "browser_process_stop_verified": false
+  },
+  "outcomes": {
+    "native_installation_completed": false,
+    "firmware_write": false,
+    "replacement_os_built_or_booted": false,
+    "paramount_plus_login_and_playback": false,
+    "modern_streaming_services_verified": [],
+    "factory_settings_changed": false,
+    "permanent_background_pc_process_created": false,
+    "overall_replacement_requirement": "not_met"
+  },
+  "interpretation": "The screen-sharing result applies to the tested mode. SDK app installation requires a Samsung-issued app ID and on-TV installation UI; it is not an arbitrary ZIP or OS upload. The prior warm AppCache result remains separate from native installation and cold-start persistence."
+}
