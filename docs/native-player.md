@@ -2,6 +2,8 @@
 
 Preview 0.2 adds a component that calls the TV's existing `SAMSUNG-INFOLINK-PLAYER` plugin from a Legacy user widget. The HTML video player remains the default. **This code has not executed on the physical research TV. It is not a replacement OS, new decoder, browser update or subscription-service integration.**
 
+The shared HTML app has since passed a physical-TV browser playback test, but that browser did not expose these native plugin methods. See the [separate browser evidence](verification.md#october-20-evening-physical-browser-execution). Native-widget PLAYER and NNavi execution remain unverified.
+
 During playback, Down focuses the buttons. Left/Right select **Try TV player**; OK activates it. **Browser player** switches back, keeping the current position where reported. Up returns focus to the video for Left/Right seeking and OK pause/resume. Return closes either player.
 
 ## What is implemented

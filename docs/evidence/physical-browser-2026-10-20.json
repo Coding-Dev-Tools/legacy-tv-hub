@@ -1,0 +1,70 @@
+{
+  "date_local": "2026-10-20",
+  "timezone": "America/New_York",
+  "release": "v0.2.0",
+  "source_commit": "f6be149aa57ebf78494e78b1fe7d1eaaceac1bf9",
+  "target": "Samsung UN55HU7250 / 14_NT14U_2D_BT",
+  "overall_modern_streaming_replacement": "not_met",
+  "firmware_installed": false,
+  "native_widget_installation_verified": false,
+  "browser_app_execution_verified": true,
+  "owner_confirmed_hub_visible_in_browser": true,
+  "owner_confirmed_video_picture_and_audio": false,
+  "page_source": "temporary local test server; no permanent-PC-free delivery established",
+  "launch_method": "Plain URL body POST to WebBrowser under Application-URL advertised by MultiScreenService; bare Host header",
+  "dial_state_advisory": "stopped, including while the page was executing",
+  "user_agent": "Mozilla/5.0 (SMART-TV; X11; Linux armv7l) AppleWebKit/537.42 (KHTML, like Gecko) Chromium/25.0.1349.2 Chrome/25.0.1349.2 Safari/537.42",
+  "storage_round_trip": true,
+  "automated_app_ui_checks": {
+    "demoButtonFound": true,
+    "pauseButtonFound": true,
+    "pauseHeld": true,
+    "resumeButtonFound": true,
+    "fullDemoPassed": true,
+    "closeButtonFound": true
+  },
+  "actual_video_ended_event": {
+    "checked_utc": "2026-10-21T02:32:04Z",
+    "video": {
+      "time": 10.02299976348877,
+      "duration": 10.02299976348877,
+      "paused": true,
+      "ended": true,
+      "error": null
+    },
+    "playerVisible": true
+  },
+  "hardware_remote_key_events_received": false,
+  "browser_capabilities": {
+    "mediaSource": false,
+    "modernEncryptedMedia": false,
+    "naclMime": false,
+    "pnaclMime": false,
+    "nativeMethods": {
+      "Play": "undefined",
+      "ResumePlay": "undefined",
+      "Stop": "undefined",
+      "Pause": "undefined",
+      "Resume": "undefined",
+      "JumpForward": "undefined",
+      "JumpBackward": "undefined",
+      "GetDuration": "undefined",
+      "SetDisplayArea": "undefined"
+    }
+  },
+  "external_image_checks": {
+    "github_pages": "failed",
+    "samsung_source_portal": "loaded",
+    "github_image_checked_independently_on_pc": "HTTP 200, valid PNG",
+    "tv_clock": "within approximately one second of test server UTC",
+    "cause_of_github_image_failure": "not established; do not generalize to all HTTPS"
+  },
+  "subscription_services_login_and_playback_verified": [],
+  "limitations": [
+    "Modern encrypted-media API observation was on HTTP, so it does not prove absence of a CDM in all contexts.",
+    "No NaCl or legacy plugin entry points were exposed in the browser context; native-widget capabilities remain untested.",
+    "Generic canPlayType responses are not proof that AV1, VP9 or HEVC decoded.",
+    "UI test actions used buttons in this own app; physical remote input and audible sound remain unverified.",
+    "This tests a browser app, not a replacement OS or authorized protected subscription playback."
+  ]
+}

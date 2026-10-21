@@ -6,7 +6,7 @@ A shared, remote-friendly media app for older smart TVs, with separate installat
 
 [Open the browser app](https://coding-dev-tools.github.io/legacy-tv-hub/app/) · [Download preview packages](https://github.com/Coding-Dev-Tools/legacy-tv-hub/releases/tag/v0.2.0)
 
-**Modern streaming replacement acceptance: not met.** See the [feature matrix](docs/compatibility.md) and [latest test results](docs/verification.md#preview-02-native-player-development). Passing the demo does not establish subscription-service compatibility.
+**Modern streaming replacement acceptance: not met.** See the [feature matrix](docs/compatibility.md) and [latest test results](docs/verification.md#october-20-evening-physical-browser-execution). Passing the demo does not establish subscription-service compatibility.
 
 The public browser build runs independently of your computer. An older TV still needs a compatible browser, TLS connection and video decoder.
 
@@ -29,7 +29,7 @@ The app plays formats the existing TV player supports. A streaming service's web
 | Target | Current evidence | Installation |
 | --- | --- | --- |
 | Desktop Chromium | Browser preview exercised; see [verification](docs/verification.md) | `python serve.py --preview` |
-| Samsung 2014 Legacy / Orsay | Physical UN55HU7250 network control and a full 10-second DLNA clip were verified. **Native installation and this app's HTML video player are unverified.** | Native user-widget ZIP and temporary sync server provided |
+| Samsung 2014 Legacy / Orsay | The shared browser app executed on a physical UN55HU7250; its real bundled video, pause/resume, return home and a storage round-trip passed. **Native installation/player and hardware remote input remain unverified.** | Native user-widget ZIP, temporary sync server and [measured browser-launch method](docs/samsung-legacy-browser.md) provided |
 | Other TVs with an HTML5 browser | Shared ES5 app is the candidate; model-specific browser/video/TLS tests are required | Browser build; native installation varies |
 | Samsung Tizen | Native adapter not implemented | Requires its own WGT/signing workflow |
 | LG webOS / NetCast | Native adapters not implemented | Requires the appropriate platform package and available developer installation path |
@@ -63,6 +63,8 @@ python serve.py --tv YOUR_TV_IP
 It serves `widgetlist.xml` and the package on port 80, accepts only the named TV and this computer, and changes no firewall rules. Starting it does not install anything. See [installation and removal](docs/samsung-legacy.md). The developer flow must be available on the TV; it has not yet been verified on the research unit.
 
 ## Develop and test
+
+The [physical browser test record](docs/verification.md#october-20-evening-physical-browser-execution) documents the first on-TV execution of the shared app. A temporary PC served that test. Independent hosting or a completed native installation is still required for use without a permanent PC; the tested GitHub-hosted image failed to load on this TV.
 
 ```sh
 npm ci --ignore-scripts

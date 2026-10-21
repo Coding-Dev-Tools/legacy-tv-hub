@@ -76,6 +76,22 @@ The [0.2 machine-readable record](test-results-0.2.0.json) separates the desktop
 
 ![Preview 0.2 demo finished in desktop Chromium; not the TV](../assets/desktop-v02-demo-finished.jpg)
 
+## October 20 evening: physical browser execution
+
+The owner confirmed **Legacy TV Hub was visible in the TV browser**. This is the first verified execution of the shared app on this physical TV, distinct from desktop simulations, native widgets and the earlier DLNA test.
+
+- The TV positively identified as UN55HU7250 / `14_NT14U_2D_BT` after initial timeouts.
+- Its MultiScreenService description advertised a DIAL control base ending in `/ws/app/`. A POST to its WebBrowser resource with a **plain application URL** and a bare Host header caused the TV to fetch and execute the page. The DIAL state remained stopped even while JavaScript and video ran; it is only an advisory on this unit.
+- The shared 0.2 app and bundled MP4 were served by a temporary local test server. Instrumentation reported a complete 10.023-second clip, `ended=true`, no video error, successful pause/resume, return home and a storage round-trip. Test actions used the app's own buttons; no physical remote key event was captured. A person has not confirmed the video's picture and audible sound.
+- The measured user agent was Chromium 25.0.1349.2 / WebKit 537.42 on ARMv7. MediaSource was not exposed. The modern encrypted-media API was not exposed on the HTTP test page; this alone does not prove absence of DRM in every context. Legacy encrypted-media entry points were present in the initial capability page.
+- Neither NaCl MIME types nor native Samsung PLAYER/NNavi method entry points were exposed in this **browser** context. This does not measure the installed-widget context.
+- A Samsung-hosted HTTPS PNG loaded and the TV clock was within about one second of server UTC. The project's GitHub Pages PNG failed, despite an independent PC fetch returning HTTP 200. The cause was not established, and this is not evidence that all HTTPS fails.
+- The source portal was accessible in a real browser; exact model and NT14U searches both returned zero results. This does not establish that source was never published.
+
+The new [browser launch tool](samsung-legacy-browser.md) reproduces the measured request after verifying the model and advertised endpoint. All 18 Python test methods passed, including six new launcher cases. It was then exercised against the physical TV and a fresh page startup was recorded. The native/portable 0.2 archives and app source were unchanged by this tool addition.
+
+See the [sanitized physical record](evidence/physical-browser-2026-10-20.json). The test's private observer collected its own playback/storage/capability results only; it is not included in the distributed app. **A working local browser copy does not meet independent installation, replacement-OS or Paramount+ acceptance.** The temporary native installer remains a separate test, with no verified installation yet.
+
 ## Unverified
 
-Native user-widget installation, actual TV-app key delivery, app HTML-video decoding/audio, app persistence on the TV, native removal, other TV browsers/manufacturers and subscription streaming. No firmware was installed. No Paramount+ login or playback has been demonstrated.
+Native user-widget installation/player, actual physical TV-app key delivery, audible sound, app library/resume persistence across a TV restart, native removal, independent delivery on this TV without a permanent PC, other TV browsers/manufacturers and subscription streaming. No firmware was installed. No Paramount+ login or playback has been demonstrated.
