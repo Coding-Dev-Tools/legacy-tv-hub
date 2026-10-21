@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-21",
+  "version": "0.3.1",
+  "model": "UN55HU7250",
+  "result": "blocked-tv-unreachable",
+  "previous_offline_reopen_evidence": "physical-browser-0.3.1.json",
+  "identity_discovery": {
+    "checked_utc": "2026-10-21T09:10:25Z",
+    "matching_ssdp_responses": 0,
+    "identity_api": "timeout"
+  },
+  "subsequent_connection_checks": [
+    {
+      "checked_utc": "2026-10-21T09:13:12Z",
+      "tcp_ports": [7676, 8001, 8080],
+      "connected_ports": []
+    },
+    {
+      "checked_utc": "2026-10-21T09:13:40Z",
+      "tcp_ports": [7676, 8001, 8080],
+      "connected_ports": []
+    }
+  ],
+  "wake_packet_sent": false,
+  "wake_unavailable_reason": "No usable single-target neighbor address was available.",
+  "app_asset_listener_running_during_attempt": false,
+  "report_only_listener": {
+    "can_serve_assets": false,
+    "get_index_html_status": 404,
+    "tv_reports_received_at_last_check": 0
+  },
+  "power_command_sent": false,
+  "tv_restart_observed": false,
+  "fresh_post_restart_document_observed": false,
+  "cache_persistence_across_restart": "unverified",
+  "saved_state_across_restart": "unverified",
+  "paramount_account_login_and_playback": "not-demonstrated",
+  "firmware_changed": false,
+  "note": "A connection timeout does not establish whether the TV is powered off, disconnected or using a different address. This is an incomplete test, not evidence that persistence failed."
+}

@@ -2,7 +2,7 @@
 
 October 21, 2026. A physical UN55HU7250 stored Legacy TV Hub and the bundled H.264/AAC clip using HTML5 Application Cache. After the asset listener was closed and a different document had loaded, a new app document opened from that cache and played the full clip without a video error. The later preview 0.2.1 variant also displayed its offline-copy status on the TV. See the [measured result](evidence/physical-cache-2026-10-21.json).
 
-This supplies a cached copy of the existing player. It does not replace Smart Hub, install a native widget, update firmware or enable Paramount+. Browser/process restart and persistence across TV power loss have **not** been verified. A cached copy can be cleared or evicted, so this is not yet a validated permanent installation.
+This supplies a cached copy of the existing player. It does not replace Smart Hub, install a native widget, update firmware or enable Paramount+. Browser/process restart and persistence across TV power loss have **not** been verified. A cached copy can be cleared or evicted, so this is not yet a validated permanent installation. Use the [restart test procedure](restart-test.md) to measure persistence without refilling the cache during the test.
 
 ## Automatic temporary setup
 

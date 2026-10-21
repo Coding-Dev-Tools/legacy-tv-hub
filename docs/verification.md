@@ -1,5 +1,11 @@
 # Verification record
 
+## October 21: restart verification attempt
+
+The identified TV's last address did not answer SSDP discovery or its identity API at 09:10 UTC. Subsequent direct checks of its three known control ports also timed out. The app asset listener remained closed. A temporary report-only listener could not serve app files and received no TV execution reports during these checks. No remote power command or firmware change was sent. The TV's power state and current address cannot be inferred from timeouts.
+
+Consequently, a TV cold boot and post-restart playback/storage could not be observed. Restart persistence remains **unverified**; the previous successful cached document reopen is a separate result. See the [sanitized attempt record](evidence/restart-attempt-2026-10-21.json) and [physical restart test procedure](restart-test.md). Paramount+ login and protected playback remain unimplemented and unverified.
+
 ## October 21: patch 0.3.1
 
 The first hosted run passed on Windows but the Linux checksum gate caught a native/portable ZIP ordering difference: Windows filesystem path comparison sorted uppercase names differently. The build now explicitly sorts case-sensitive archive names, with a regression assertion covering all three archives. The checksum gate stays enabled; original 0.3.0 release assets are unchanged.
