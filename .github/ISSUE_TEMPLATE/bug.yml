@@ -1,0 +1,27 @@
+name: App or setup bug
+description: Report a reproducible problem in the media app or temporary setup tools
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: "Omit accounts, serial numbers, Wi-Fi names, pairing codes, private media links and tokens."
+  - type: input
+    id: version
+    attributes:
+      label: App version and installation method
+      placeholder: "0.3.0, offline browser copy"
+    validations:
+      required: true
+  - type: input
+    id: platform
+    attributes:
+      label: TV model / platform or desktop browser
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps, expected result and actual result
+      description: Include the exact visible error and a minimal reproduction without private data.
+    validations:
+      required: true

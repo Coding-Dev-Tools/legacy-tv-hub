@@ -3,6 +3,7 @@
     var core = window.HubCore, content, video, store, data, persistent, platform = null, nativeKeys = null;
     var view = 'home', active = null, resume = 0, lastSave = 0, editingField = 'url', caps = false;
     var nativePlayer = null, usingTV = false, playbackGeneration = 0, runtimeInfo = null, htmlPlayIntent = false;
+    var htmlReady = false, htmlSource = '';
     var keys = {UP: 38, DOWN: 40, LEFT: 37, RIGHT: 39, ENTER: 13, RETURN: 8, EXIT: 27, PLAY: 415, PAUSE: 19, STOP: 413, FF: 417, REW: 412};
     function element(tag, className, text) {
         var node = document.createElement(tag);
@@ -112,7 +113,7 @@
         function commit(playVideo) {
             try {
                 var safe = core.videoURL(url.value), saved;
-                if (item) { item.url = safe; item.title = core.cleanText(title.value, 90) || 'Saved video'; saved = item; }
+                if (item) { saved = core.update(data, item, title.value, safe); }
                 else { saved = core.add(data, title.value, safe); }
                 persist(); content.className = '';
                 if (playVideo) { start(saved, true); } else { library(false); notice('Video saved.'); }
@@ -123,7 +124,7 @@
         editingField = 'url'; caps = false; url.focus();
     }
     function about() {
-        begin('about', 'A useful app. Honest limits.', 'Legacy TV Hub preview 0.2 — a shared app for older TV browsers, with platform-specific installers.');
+        begin('about', 'Display & help', 'Legacy TV Hub ' + (window.HubVersion || 'development') + ' — a media app for older TV browsers.');
         var toolbar = put(content, 'div', 'toolbar');
         button(toolbar, data.contrast ? 'Contrast: high' : 'Contrast: standard', function () {
             data.contrast = !data.contrast; document.body.className = data.contrast ? 'high-contrast' : ''; persist(); about();
@@ -148,13 +149,13 @@
         return nativePlayer ? nativePlayer.snapshot() : {currentTime: resume, duration: 0, paused: true, ended: false};
     }
     function remember(force) {
-        if (!active || active.id === 'demo' || (usingTV && !nativePlayer)) { return; }
+        if (!active || active.id === 'demo' || (usingTV && !nativePlayer) || (!usingTV && (!htmlReady || resume))) { return; }
         var now = new Date().getTime();
         if (!force && now - lastSave < 5000) { return; }
         lastSave = now;
         var current = playbackState();
         if (isFinite(current.currentTime)) { active.position = Math.max(0, current.currentTime); }
-        if (isFinite(current.duration)) { active.duration = Math.max(0, current.duration); }
+        if (isFinite(current.duration) && current.duration > 0) { active.duration = current.duration; }
         active.played = now; persist();
     }
     function play() {
@@ -169,7 +170,10 @@
             var promise = video.play();
             if (promise && typeof promise['catch'] === 'function') {
                 promise['catch'](function () {
-                    if (generation === playbackGeneration && !usingTV && active && htmlPlayIntent) { htmlPlayIntent = false; state('Press Play to begin.'); }
+                    if (generation === playbackGeneration && !usingTV && active && htmlPlayIntent) {
+                        htmlPlayIntent = false;
+                        state(video.error ? 'Cannot play this link on this TV. Return to choose another.' : 'Press Play to begin.');
+                    }
                 });
             }
         } catch (problem) { state('This video could not be started.'); }
@@ -184,6 +188,7 @@
     }
     function closePlayer() {
         remember(true); playbackGeneration += 1; htmlPlayIntent = false;
+        active = null; htmlReady = false; htmlSource = ''; resume = 0;
         if (nativePlayer) { nativePlayer.close(); nativePlayer = null; }
         usingTV = false; document.documentElement.className = '';
         video.pause(); video.removeAttribute('src'); video.load(); active = null;
@@ -196,6 +201,7 @@
     }
     function start(item, fromBeginning, preferTV, position) {
         playbackGeneration += 1; htmlPlayIntent = false;
+        active = null; htmlReady = false; htmlSource = '';
         if (nativePlayer) { nativePlayer.close(); nativePlayer = null; }
         video.pause(); video.removeAttribute('src'); video.load();
         usingTV = !!preferTV;
@@ -227,7 +233,10 @@
                 var link = document.createElement('a'); link.href = item.url;
                 nativePlayer.load(link.href, resume); resume = 0; nativePlayer.play();
             } catch (ignoredNativePlayer) { document.documentElement.className = ''; state('TV player unavailable. Choose Browser player to continue.'); }
-        } else { video.src = item.url; video.load(); play(); }
+        } else {
+            var source = document.createElement('a'); source.href = item.url; htmlSource = source.href;
+            video.src = item.url; video.load(); play();
+        }
         document.getElementById('player-screen').focus();
     }
     function block(event) {
@@ -271,6 +280,15 @@
         shell.style.left = Math.max(0, (window.innerWidth - 1280 * scale) / 2) + 'px'; shell.style.top = Math.max(0, (window.innerHeight - 720 * scale) / 2) + 'px';
     }
     function clock() { var now = new Date(), minutes = now.getMinutes(); document.getElementById('clock').textContent = now.getHours() + ':' + (minutes < 10 ? '0' : '') + minutes; }
+    function currentHTML() { return !usingTV && active && video.currentSrc === htmlSource; }
+    function applyResume() {
+        if (!currentHTML() || video.readyState < 1) { return; }
+        htmlReady = true;
+        if (resume) {
+            if (isFinite(video.duration) && resume >= video.duration - 5) { resume = 0; }
+            else { try { video.currentTime = resume; resume = 0; } catch (ignoredSeek) {} }
+        }
+    }
     function init() {
         content = document.getElementById('content'); video = document.getElementById('video');
         try { store = window.localStorage; } catch (ignored) { store = null; }
@@ -284,19 +302,20 @@
                 if (platform.runtimeInfo) { runtimeInfo = platform.runtimeInfo(); }
             }
         } catch (ignoredNative) { platform = null; }
-        video.addEventListener('loadedmetadata', function () { if (!usingTV && resume) { try { video.currentTime = resume; } catch (ignored) {} resume = 0; } }, false);
-        video.addEventListener('playing', function () { if (!usingTV && active) { state('Playing'); } }, false);
-        video.addEventListener('pause', function () { if (!usingTV && active) { state(video.ended ? 'Finished' : 'Paused'); remember(true); } }, false);
-        video.addEventListener('waiting', function () { if (!usingTV && active) { state('Buffering…'); } }, false);
-        video.addEventListener('ended', function () { if (!usingTV && active) { state('Finished'); remember(true); } }, false);
-        video.addEventListener('error', function () { if (!usingTV && active) { state('Cannot play this link on this TV. Return to choose another.'); } }, false);
+        video.addEventListener('loadedmetadata', applyResume, false);
+        video.addEventListener('canplay', applyResume, false);
+        video.addEventListener('playing', function () { if (currentHTML()) { state('Playing'); } }, false);
+        video.addEventListener('pause', function () { if (currentHTML() && htmlReady) { state(video.ended ? 'Finished' : 'Paused'); remember(true); } }, false);
+        video.addEventListener('waiting', function () { if (currentHTML()) { state('Buffering…'); } }, false);
+        video.addEventListener('ended', function () { if (currentHTML()) { state('Finished'); remember(true); } }, false);
+        video.addEventListener('error', function () { if (!usingTV && active) { htmlPlayIntent = false; state('Cannot play this link on this TV. Return to choose another.'); } }, false);
         video.addEventListener('timeupdate', function () {
-            if (!usingTV && active) { updateProgress(video); remember(false); }
+            if (currentHTML()) { applyResume(); updateProgress(video); remember(false); }
         }, false);
         document.addEventListener('keydown', onKey, false); window.onresize = fit;
         window.addEventListener('beforeunload', function () { remember(true); if (nativePlayer) { nativePlayer.close(); } }, false);
         document.body.className = data.contrast ? 'high-contrast' : ''; home(); fit(); clock(); window.setInterval(clock, 30000);
-        notice(persistent ? 'Stored locally. No account needed.' : 'Changes are kept for this session only.');
+        notice(loaded.recovered ? 'Unreadable saved library. You can save a new library.' : (persistent ? 'Stored locally. No account needed.' : 'Changes are kept for this session only.'));
     }
     window.addEventListener('load', init, false);
 }());

@@ -7,3 +7,5 @@ __pycache__/
 *.private.*
 .DS_Store
 Thumbs.db
+playwright-report/
+test-results/

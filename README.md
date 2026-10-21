@@ -1,85 +1,75 @@
 # Legacy TV Hub
 
-A shared, remote-friendly media app for older smart TVs, with separate installation adapters for each platform.
+[![Checks](https://github.com/Coding-Dev-Tools/legacy-tv-hub/actions/workflows/checks.yml/badge.svg)](https://github.com/Coding-Dev-Tools/legacy-tv-hub/actions/workflows/checks.yml)
 
-**Preview 0.2.1. This is an app project, not universal TV firmware. It does not enable Paramount+ or upgrade a TV's browser engine or DRM.** The native package remains version 0.200 and targets Samsung's 2014 Legacy platform. Other manufacturers are in scope, but their native adapters are not implemented yet.
+A remote-controlled media app and temporary setup tools for older Samsung TVs. Save direct video links, keep watch positions, and store the app and its bundled demo in a compatible TV browser.
 
-[Open the browser app](https://coding-dev-tools.github.io/legacy-tv-hub/app/) · [Offline browser copy](docs/standalone-browser.md) · [Download previews](https://github.com/Coding-Dev-Tools/legacy-tv-hub/releases)
+**Preview 0.3.0.** The tested platform is Samsung 2014 Legacy / Orsay (UN55HU7250). Firmware replacement, Tizen upgrades and Paramount+ support are unavailable in this project. See the [feature matrix](docs/compatibility.md) and [measured results](docs/verification.md).
 
-**Modern streaming replacement acceptance: not met.** See the [feature matrix](docs/compatibility.md) and [latest cache test](docs/verification.md#october-21-cached-browser-copy). Passing the demo does not establish subscription-service compatibility.
-
-The public browser build runs independently of your computer. An older TV still needs a compatible browser, TLS connection and video decoder.
+[Browser preview](https://coding-dev-tools.github.io/legacy-tv-hub/app/) · [Download packages](https://github.com/Coding-Dev-Tools/legacy-tv-hub/releases/tag/v0.3.0) · [Installation details](docs/standalone-browser.md)
 
 ![Legacy TV Hub home screen](assets/home.png)
 
-## What the app does
+## Set up the offline browser copy
 
-- A home screen navigated with arrows, OK and Return.
-- A local library of direct video links, recent videos and resume positions.
-- An on-screen keyboard for entering links with a TV remote.
-- Play/pause, seeking, clear playback errors and high contrast mode.
-- A bundled offline video for checking playback.
-- An optional [browser-cache build](docs/standalone-browser.md). The research TV reopened the app and completed its demo with the asset server stopped. Persistence across a power cycle remains unverified.
-- An optional Samsung Legacy native-player bridge, with remote-accessible browser fallback, and read-only firmware information. Both native APIs still need physical-TV validation; see [adapter details](docs/native-player.md).
-- No account, analytics, CDN scripts or runtime package dependencies.
+Use Python 3.10+ on a computer connected to the same LAN as the powered-on TV. From a downloaded or cloned copy of this repository:
 
-The app plays formats the existing TV player supports. A streaming service's website URL is not a direct video URL. Subscription playback requires the service's authorized integration and supported content protection.
+```sh
+python serve.py --setup --tv YOUR_TV_IP
+```
 
-## Compatibility: scope versus proof
+On the tested UN55HU7250 this command:
 
-| Target | Current evidence | Installation |
-| --- | --- | --- |
-| Desktop Chromium | Browser preview exercised; see [verification](docs/verification.md) | `python serve.py --preview` |
-| Samsung 2014 Legacy / Orsay | The shared browser app executed on a physical UN55HU7250; its bundled video, pause/resume, return home and a storage round-trip passed. A later copy reopened and played the clip from browser cache with its asset server closed. **Cold-start persistence, native installation/player and hardware remote input remain unverified.** | Native user-widget ZIP, temporary sync server, [browser-cache copy](docs/standalone-browser.md) and [measured browser-launch method](docs/samsung-legacy-browser.md) provided |
-| Other TVs with an HTML5 browser | Shared ES5 app is the candidate; model-specific browser/video/TLS tests are required | Browser build; native installation varies |
-| Samsung Tizen | Native adapter not implemented | Requires its own WGT/signing workflow |
-| LG webOS / NetCast | Native adapters not implemented | Requires the appropriate platform package and available developer installation path |
-| Android / Google TV, Fire TV | Native adapter not implemented | Requires an Android app or suitable browser/runtime |
-| Roku and other closed platforms | No implementation or validated install path | Requires a platform-specific implementation and vendor-supported installation |
-| TVs without a usable app/browser installation path | Blocked under a software-only constraint | Wi-Fi access alone does not create an installation or boot path |
+1. Builds and verifies the offline app, then starts a temporary server on the selected LAN interface (port 8769 by default).
+2. Identifies the TV and requests its browser to open the local app.
+3. Waits for the TV to acknowledge that the copy is stored. The acknowledgment contains only the app version and a temporary setup token.
+4. Closes the server and requests the same app URL again from the TV's cache.
 
-An OS replacement also requires the exact board support, display/input/network/audio/video drivers, compatible boot/update verification, and recovery. The repository does not contain those vendor components. Each claim of support must name a model and describe an actual test; "all old TVs" is the project scope, not a compatibility claim.
+Bookmark the exact URL printed by the command in the TV browser. Once the copy is stored, the app and bundled demo can run without a computer serving their files. Saved video links still need their own available media source. Browser-cache eviction, clearing TV data or a changed origin may require another transfer. **Persistence across TV power loss remains unverified.** A launch response alone does not prove page execution; the command reports a timeout as an unconfirmed setup.
 
-## Run the browser preview
+`--port 8770` selects another browser-serving port; `--duration 300` changes the maximum wait (default 900 seconds, maximum 3600). The server stops early after cache acknowledgment. It changes no firewall rules. If automatic launch is unavailable, use the [manual browser instructions](docs/standalone-browser.md). Other models require their own tests and an explicit `--expected-model`; this is not general Samsung device discovery.
 
-Python 3.10+ is used for development and temporary installation only:
+Modern browsers have removed AppCache. Use the regular [browser app](https://coding-dev-tools.github.io/legacy-tv-hub/app/) for a desktop preview; older TVs may also fail to connect to modern HTTPS hosts. Temporary HTTP transfer avoids that hosting requirement on the measured TV.
+
+## Features and support
+
+| Capability | Status |
+| --- | --- |
+| Direct video links, favorites, resume and recent videos | Implemented; limited by the TV's existing decoder and network support |
+| Remote-style arrows, OK/Enter, Back/Return and playback controls | Implemented; desktop key tests pass; physical hardware-key behavior still needs a model-specific report |
+| On-screen link keyboard, high contrast and local storage | Implemented; no account or external runtime packages |
+| Cached app and bundled H.264/AAC demo | Physical UN55HU7250 document reopen and complete playback verified with asset serving stopped; see [evidence](docs/verification.md) |
+| Samsung native user widget | Packaged preview; installation/removal and optional native PLAYER remain unverified |
+| Newer official Samsung firmware | Use Samsung's exact-model updater; this repository has no firmware image |
+| Paramount+ and other unsupported subscription services | No integration or verified protected playback |
+| Tizen, webOS, Android TV and Roku native packages | Not implemented; each needs its own adapter and supported installation route |
+
+A service's watch-page URL is not a direct media link. Root access, a new home screen or a codec alone does not provide an authorized subscription player or its protected playback components.
+
+## Native Samsung 2014 package
 
 ```sh
 python build.py
-python serve.py --preview
-```
-
-Open the localhost URL printed by the server. It stops after 15 minutes; Ctrl+C stops it earlier. The source app is in `app/`. An installed native package includes the app and demo, and does not need a permanently running computer. Remote video sources must remain available independently.
-
-## Samsung 2014 native package
-
-`python build.py` produces `LegacyTVHub_0.200_USA_20261020.zip` and its SHA-256 manifest in `release.json`. It is a Legacy user widget, not a Tizen WGT, Android APK, USB firmware update or replacement for Smart Hub.
-
-Run the short-lived sync server with your TV's local IPv4 address:
-
-```sh
 python serve.py --tv YOUR_TV_IP
 ```
 
-It serves `widgetlist.xml` and the package on port 80, accepts only the named TV and this computer, and changes no firewall rules. Starting it does not install anything. See [installation and removal](docs/samsung-legacy.md). The developer flow must be available on the TV; it has not yet been verified on the research unit.
+The build creates native widget **0.300**, portable web **0.3.0**, and offline web **0.3.0** archives. `release.json` and `SHA256SUMS` record their sizes and checksums. The native sync server uses port 80. Installation still requires Samsung's on-TV developer/sync workflow; see [installation and removal](docs/samsung-legacy.md). This package does not flash the TV.
 
-## Develop and test
+## Develop and verify
 
-The [physical browser test record](docs/verification.md#october-20-evening-physical-browser-execution) documents the first on-TV execution of the shared app. A later [cache test](docs/standalone-browser.md) reopened and played the app's demo with its asset server closed. It removes continuous app serving for that measured browser session; power-cycle persistence and permanent installation remain unverified. The tested GitHub-hosted image failed to load on this TV.
+Node is needed only for development tests. TV setup uses the Python standard library.
 
 ```sh
 npm ci --ignore-scripts
 npm test
 python build.py
-python -m unittest discover -s tests
+python -m unittest discover -s tests -v
+npx playwright install chrome
+npm run test:browser
 ```
 
-The optional GitHub Actions template is in `docs/ci-checks.yml`; it is not enabled automatically. Acorn is a development-only parser used to enforce ES5 syntax. Keep browser code free of modern-only syntax, `fetch`, external frameworks and required cloud services. The build is deterministic. The server exposes an explicit file list and has a fixed lifetime.
+Browser tests use a separate headless profile and exercise complete H.264/AAC playback, pause/resume, remote-style navigation, delayed metadata, editing, storage recovery and video errors. On Windows with Edge installed, set `HUB_BROWSER_CHANNEL=msedge`; `HUB_PYTHON` can select the Python executable. Linux CI uses Chrome. Chromium-browser results are distinct from measurements on a physical Samsung TV.
 
-## Contribute another TV
+[GitHub Actions](.github/workflows/checks.yml) runs the core/ES5 and Python checks on Linux and Windows, checks generated release metadata, and runs browser playback checks on Linux. All runtime application scripts must parse as ES5. ZIP entries use fixed dates, Unix attributes and normalized text; repeat-build checks cover all three packages.
 
-Use the compatibility-report issue template. Include model, year, country, platform, app version, install method, actual remote keys, complete video test and removal result. Omit serial numbers, MAC addresses, Wi-Fi names, account data, pairing codes and tokens. Native packaging adapters should be isolated from the shared app, with their own repeatable installation and removal instructions.
-
-The [research summary](docs/research.md) records the current firmware/DRM boundary. MIT licensed; see [LICENSE](LICENSE).
-
-For actual OS replacement research, see the [candidate methods and missing components](docs/os-replacement.md). A read-only MSDU10 container inspector is included in `tools/inspect_firmware.py`; it does not produce or install firmware.
+See [CONTRIBUTING](CONTRIBUTING.md), [security reporting](SECURITY.md), the [0.3.0 release notes](docs/release-0.3.0.md), and [OS-replacement research](docs/os-replacement.md). Compatibility reports should include actual installation, remote input, complete playback and restart results, with serial numbers, network names, accounts and pairing data omitted. MIT licensed; see [LICENSE](LICENSE).

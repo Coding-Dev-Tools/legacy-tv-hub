@@ -1,6 +1,6 @@
 'use strict';
 var fs = require('fs'), path = require('path'), acorn = require('acorn');
-['core.js', 'app.js'].forEach(function (name) {
+fs.readdirSync(path.join(__dirname, 'app')).filter(function (name) { return /\.js$/.test(name); }).forEach(function (name) {
     acorn.parse(fs.readFileSync(path.join(__dirname, 'app', name), 'utf8'), {ecmaVersion: 5});
 });
 ['platform.js', 'player.js'].forEach(function (name) {

@@ -43,8 +43,11 @@
         return output;
     }
     function load(storage) {
-        try { return {data: normalize(JSON.parse(storage.getItem(KEY))), persistent: true}; }
-        catch (ignored) { return {data: empty(), persistent: false}; }
+        var raw;
+        try { raw = storage.getItem(KEY); }
+        catch (ignored) { return {data: empty(), persistent: false, recovered: false}; }
+        try { return {data: normalize(JSON.parse(raw)), persistent: true, recovered: false}; }
+        catch (ignoredJSON) { return {data: empty(), persistent: true, recovered: true}; }
     }
     function save(storage, data) {
         try { storage.setItem(KEY, JSON.stringify(normalize(data))); return true; }
@@ -67,10 +70,20 @@
         var position = Number(item.position), duration = Number(item.duration);
         return isFinite(position) && isFinite(duration) && duration > 15 && position >= 5 && position < duration - 5 ? position : 0;
     }
+    function update(data, item, title, url) {
+        var safeURL = videoURL(url), i;
+        if (data.items.indexOf(item) === -1) { throw new Error('This saved video is no longer available.'); }
+        for (i = 0; i < data.items.length; i += 1) {
+            if (data.items[i] !== item && data.items[i].url === safeURL) { throw new Error('A video with that link is already saved.'); }
+        }
+        if (item.url !== safeURL) { item.position = 0; item.duration = 0; item.played = 0; }
+        item.url = safeURL; item.title = cleanText(title, 90) || 'Saved video';
+        return item;
+    }
     function time(seconds) {
         var value = Math.max(0, Math.floor(Number(seconds) || 0));
         if (!isFinite(value)) { value = 0; }
         return Math.floor(value / 60) + ':' + (value % 60 < 10 ? '0' : '') + value % 60;
     }
-    return {key: KEY, maxItems: MAX_ITEMS, empty: empty, normalize: normalize, load: load, save: save, add: add, videoURL: videoURL, cleanText: cleanText, resumeAt: resumeAt, time: time};
+    return {key: KEY, maxItems: MAX_ITEMS, empty: empty, normalize: normalize, load: load, save: save, add: add, update: update, videoURL: videoURL, cleanText: cleanText, resumeAt: resumeAt, time: time};
 }));

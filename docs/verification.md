@@ -1,5 +1,16 @@
 # Verification record
 
+## October 21: preview 0.3.0
+
+Local checks passed: four Node suites (core, native bridge contract, offline setup acknowledgment, ES5 parsing), 25 Python tests, and four real Edge/Chromium browser scenarios. The browser suite completed the bundled H.264/AAC video, held pause, resumed to the end, and checked navigation, early close before metadata, source edits, damaged storage and playback error recovery. A clean npm install and audit passed with zero reported vulnerabilities. These are development checks, not Samsung hardware certification.
+
+The new `--setup` command ran against the physical UN55HU7250. Its browser acknowledged a stored 0.3.0 copy. The setup server stopped automatically and requested a cached reopen. A separate instrumented test then measured complete playback both online and after a different document had loaded and the asset listener was closed. The offline boot was new; its clock progressed through all 10.023 seconds, pause held, resume completed, a temporary local-storage check passed, and the app returned Home. The report-only listener supplied no assets and received zero asset requests after closure. Both temporary listeners were then stopped.
+
+The measurement used the production app code with one observer script reference and an observer manifest entry. The [sanitized record and deployed asset hashes](evidence/physical-browser-0.3.0.json) identify that scope. The clean cached `index.html` was requested after the diagnostic listeners stopped; that final clean-document execution has no separate observer result. No remote media links or personal library contents were collected.
+
+TV power-cycle persistence, native installation/removal, native PLAYER playback, physical hardware-key input, human confirmation of picture/audio and Paramount+ protected playback remain unverified. No firmware was written. GitHub-hosted CI results are recorded by the Checks workflow, separately from these local measurements.
+
+
 Date: October 20, 2026. Records for previews 0.1 and 0.2.
 
 ## Physical TV

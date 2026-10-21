@@ -1,18 +1,25 @@
 {
   "name": "Legacy TV Hub",
-  "version": "0.200",
-  "archive": "LegacyTVHub_0.200_USA_20261020.zip",
-  "bytes": 1488815,
-  "sha256": "128f660febf4c0383f814bcc62c26787e94c954f9653f386dbb8bb5858b275aa",
+  "version": "0.3.0",
+  "widget_version": "0.300",
+  "archive": "LegacyTVHub_0.300_USA_20261021.zip",
+  "bytes": 1489352,
+  "sha256": "2d26de240638f9c362e59454034c52ade77487dec1da7417da2342a54051327a",
   "platform_target": "Samsung 2014 Legacy user application",
-  "release_status": "Preview. Native installation, HTML playback and the optional Samsung PLAYER adapter require physical-TV validation.",
+  "release_status": "Preview. Native installation and the optional Samsung PLAYER adapter remain unverified. See docs/verification.md for browser test evidence.",
   "firmware": false,
   "enables_paramount_plus": false,
   "permanent_pc_required_after_native_install": false,
   "portable_web": {
-    "archive": "LegacyTVHub_portable_web_0.2.0.zip",
-    "bytes": 1485177,
-    "sha256": "6590222330944fb9fc956ad8172d65683cd492b3eba976cfe0fe079473dcb01b",
+    "archive": "LegacyTVHub_portable_web_0.3.0.zip",
+    "bytes": 1485715,
+    "sha256": "be4252be7fffef67be9200c094f436af3aff927513d4f57e8ffb7d3319c6564f",
     "status": "Browser app; requires a compatible browser and independent hosting or a native installation adapter."
+  },
+  "offline_web": {
+    "name": "LegacyTVHub_offline_web_0.3.0.zip",
+    "bytes": 1487001,
+    "sha256": "e9abdebb6b665fedcb9e51d3765023f7b46ac20b57a5bef25304fa39bc8e7be9",
+    "status": "Optional AppCache browser copy; persistence across a TV power cycle remains unverified."
   }
 }

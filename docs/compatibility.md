@@ -1,6 +1,6 @@
 # Feature status and acceptance
 
-Assessment date: October 21, 2026. Target tested: Samsung UN55HU7250 / 2014 Legacy platform. Preview 0.2.1 does **not** meet the requirement to replace modern TV software or run all modern streaming services. Other TV platforms need their own verified installation and runtime support.
+Assessment date: October 21, 2026. Target tested: Samsung UN55HU7250 / 2014 Legacy platform. Preview 0.3.0 does **not** meet the requirement to replace modern TV software or run all modern streaming services. Other TV platforms need their own verified installation and runtime support.
 
 The status labels below distinguish existing functions from future development. "Blocked" means there is no demonstrated implementation within the current software-only, no-permanent-PC constraint; it is not a claim that future vendor cooperation is impossible.
 

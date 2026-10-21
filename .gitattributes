@@ -8,3 +8,6 @@
 *.png binary
 *.jpg binary
 *.mp4 binary
+*.md text eol=lf
+*.yml text eol=lf
+SHA256SUMS text eol=lf

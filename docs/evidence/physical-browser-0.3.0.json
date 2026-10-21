@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-21",
+  "version": "0.3.0",
+  "model": "UN55HU7250",
+  "platform": "14_NT14U_2D_BT",
+  "production_setup": {
+    "tv_cache_ready_acknowledgment": true,
+    "asset_server_stopped_automatically": true,
+    "native_installation": false
+  },
+  "instrumented_browser_validation": {
+    "app_source_unchanged": true,
+    "changes": [
+      "One observer script reference in the root document",
+      "Observer script in AppCache manifest"
+    ],
+    "observer_scope": "Own app version, cache events, boot identity, temporary storage check and media states only.",
+    "online": {
+      "completed_utc": "2026-10-21T08:51:39Z",
+      "full_demo": true,
+      "duration_seconds": 10.02299976348877,
+      "pause_held": true,
+      "resumed": true,
+      "storage_round_trip": true
+    },
+    "offline": {
+      "completed_utc": "2026-10-21T08:52:32Z",
+      "different_document_visited_first": true,
+      "new_document_boot": true,
+      "asset_listener_closed_before_reopen": true,
+      "asset_requests_after_close": 0,
+      "report_listener_can_serve_assets": false,
+      "full_demo": true,
+      "duration_seconds": 10.02299976348877,
+      "pause_held": true,
+      "resumed": true,
+      "storage_round_trip": true,
+      "return_home": true
+    }
+  },
+  "unverified": [
+    "TV power-cycle persistence",
+    "Native widget installation and removal",
+    "Native PLAYER playback",
+    "Physical remote key input",
+    "Human confirmation of picture and sound",
+    "Paramount+ account login and protected playback"
+  ],
+  "firmware_changed": false,
+  "permanent_pc_required_for_cached_app_or_demo": false,
+  "deployed_asset_sha256": {
+    "app.js": "545a58a176b9263583398625176b84bc92bdc90732c6f41c80cc8c8deaf2baa7",
+    "core.js": "40408adad1ac391cd8da63b7ecfd7c2a90a332c98b22536279b66a9a6b3343cd",
+    "version.js": "5dd58b9a2e93e4b77500e7e57e8289169759d1ada4b0b7793eeda0b0d752db43",
+    "style.css": "1c9e56554b90c3de57bef713ecb384fa671632f41530ac976fd64d3e86e3beee",
+    "offline.js": "858fe8aab66129c51a1055e34d0cd526f38add71e84b19e1f65c0e5fcf99184b"
+  }
+}

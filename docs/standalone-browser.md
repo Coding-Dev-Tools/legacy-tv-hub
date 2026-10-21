@@ -4,7 +4,15 @@ October 21, 2026. A physical UN55HU7250 stored Legacy TV Hub and the bundled H.2
 
 This supplies a cached copy of the existing player. It does not replace Smart Hub, install a native widget, update firmware or enable Paramount+. Browser/process restart and persistence across TV power loss have **not** been verified. A cached copy can be cleared or evicted, so this is not yet a validated permanent installation.
 
-## Build and load
+## Automatic temporary setup
+
+```sh
+python serve.py --setup --tv YOUR_TV_IP
+```
+
+The command builds and verifies the offline copy, opens the identified TV browser, and waits for its cache-ready acknowledgment. It then closes the asset listener and requests the clean app URL again. Acknowledgment contains only the app version and a temporary token; normal use sends no reports. Setup times out with an unverified result if the TV does not acknowledge. Save the printed URL in the TV browser's bookmarks. Automatic bookmark creation is unavailable to the page.
+
+## Build and load manually
 
 From the repository root, using Python 3.10 or newer:
 
@@ -13,7 +21,7 @@ python tools/build_offline_web.py
 python serve.py --offline --tv YOUR_TV_IP --port 8769
 ```
 
-The builder creates `dist/offline/` and `dist/LegacyTVHub_offline_web_0.2.1.zip`. The server verifies its asset hashes, exposes only the declared files, serves the manifest as `text/cache-manifest`, and stops automatically after 15 minutes. It needs no native ZIP, firewall changes, accounts or additional packages. `--duration` can extend the temporary window up to one hour.
+The builder creates `dist/offline/` and `dist/LegacyTVHub_offline_web_0.3.0.zip`. The server verifies its asset hashes, exposes only the declared files, serves the manifest as `text/cache-manifest`, and stops automatically after 15 minutes. It needs no native ZIP, firewall changes, accounts or additional packages. For manual serving, stop it after the app reports its stored copy. `--duration` can extend the temporary window up to one hour.
 
 Open the server's printed URL in the TV browser, including its port. On the measured Samsung target, the repository's browser launcher can open it over the LAN:
 

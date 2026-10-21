@@ -8,17 +8,19 @@ import hashlib
 import json
 from pathlib import Path, PurePosixPath
 import zipfile
+import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = '0.2.1'
+if not __package__:
+    sys.path.insert(0, str(ROOT))
+from tools.packaging import VERSION, asset_bytes, entry
 
 def digest(data):
     return hashlib.sha256(data).hexdigest()
 
 def offline_files():
     app = ROOT / 'app'
-    files = {path.relative_to(app).as_posix():path.read_bytes().replace(b'\r\n',b'\n')
-             if path.suffix in {'.html','.js','.css'} else path.read_bytes()
+    files = {path.relative_to(app).as_posix():asset_bytes(path)
              for path in sorted(app.rglob('*')) if path.is_file()}
     html = files['index.html'].decode('utf-8')
     if '<html lang="en">' not in html or '</body>' not in html:
@@ -56,9 +58,7 @@ def build(output):
     archive = output.parent/('LegacyTVHub_offline_web_'+VERSION+'.zip')
     with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as package:
         for name,data in sorted(files.items()):
-            info = zipfile.ZipInfo(name,date_time=(2026,10,21,0,0,0))
-            info.external_attr = 0o100644 << 16
-            package.writestr(info,data,compress_type=zipfile.ZIP_DEFLATED,compresslevel=9)
+            package.writestr(entry(name),data,compress_type=zipfile.ZIP_DEFLATED,compresslevel=9)
     record['archive'] = {'name':archive.name,'bytes':archive.stat().st_size,'sha256':digest(archive.read_bytes())}
     marker.write_text(json.dumps(record,indent=2)+'\n',encoding='utf-8')
     return record

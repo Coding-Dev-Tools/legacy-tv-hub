@@ -42,6 +42,13 @@ class ServerTests(unittest.TestCase):
             with self.assertRaises(urllib.error.HTTPError) as error:
                 self.get(path)
             self.assertEqual(error.exception.code, 404)
+    def test_invalid_setup_is_rejected_before_listening(self):
+        for arguments in (['--preview', '--port', '0'], ['--setup', '--preview'],
+                          ['--setup', '--tv', '127.0.0.1'], ['--setup', '--tv', '169.254.1.2']):
+            result = subprocess.run([sys.executable, str(ROOT/'serve.py')] + arguments,
+                                    cwd=ROOT, capture_output=True, text=True, timeout=5)
+            self.assertEqual(result.returncode, 2)
+            self.assertNotIn('Temporary server:', result.stdout)
     def test_byte_ranges_and_head(self):
         clip = (ROOT/'app/media/demo.mp4').read_bytes()
         with self.get('/media/demo.mp4', {'Range': 'bytes=5-14'}) as response:
