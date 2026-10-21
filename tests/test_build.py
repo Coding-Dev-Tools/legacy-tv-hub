@@ -30,6 +30,7 @@ class ReleaseBuildTests(unittest.TestCase):
             self.assertIn(expected + '  ' + path.name, checksums)
             with zipfile.ZipFile(path) as package:
                 self.assertIsNone(package.testzip())
+                self.assertEqual(package.namelist(), sorted(package.namelist()), 'ZIP names must have the same case-sensitive order on every OS')
                 self.assertIn(version.encode('ascii'), package.read('version.js'))
                 self.assertTrue(all(info.create_system == 3 for info in package.infolist()))
                 self.assertNotIn(b'\r\n', package.read('LICENSE'))

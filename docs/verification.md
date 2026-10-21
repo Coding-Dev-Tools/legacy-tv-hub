@@ -1,5 +1,12 @@
 # Verification record
 
+## October 21: patch 0.3.1
+
+The first hosted run passed on Windows but the Linux checksum gate caught a native/portable ZIP ordering difference: Windows filesystem path comparison sorted uppercase names differently. The build now explicitly sorts case-sensitive archive names, with a regression assertion covering all three archives. The checksum gate stays enabled; original 0.3.0 release assets are unchanged.
+
+The physical UN55HU7250 acknowledged the 0.3.1 production cache. A repeat of the separate online/offline observer test also passed for this exact app version: different document, closed asset listener, new app boot, full 10.023-second video, held pause, resumed playback, temporary storage check and return Home. No asset requests were served after listener closure. See [the 0.3.1 measurement and asset hashes](evidence/physical-browser-0.3.1.json). The limits described in the 0.3.0 record continue to apply. The final clean cached document request is distinct from the instrumented execution test.
+
+
 ## October 21: preview 0.3.0
 
 Local checks passed: four Node suites (core, native bridge contract, offline setup acknowledgment, ES5 parsing), 25 Python tests, and four real Edge/Chromium browser scenarios. The browser suite completed the bundled H.264/AAC video, held pause, resumed to the end, and checked navigation, early close before metadata, source edits, damaged storage and playback error recovery. A clean npm install and audit passed with zero reported vulnerabilities. These are development checks, not Samsung hardware certification.

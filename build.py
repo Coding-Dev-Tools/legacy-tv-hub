@@ -28,7 +28,7 @@ def build():
     with zipfile.ZipFile(ARCHIVE, 'w', zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
         source_files = [(path, path.relative_to(APP).as_posix()) for path in sorted(APP.rglob('*')) if path.is_file()]
         source_files += [(adapter / 'config.xml', 'config.xml'), (adapter / 'platform.js', 'platform-native.js'), (adapter / 'player.js', 'legacy-player.js')]
-        for path, name in source_files:
+        for path, name in sorted(source_files, key=lambda item: item[1]):
             if not path.is_file():
                 continue
             data = asset_bytes(path)
@@ -43,7 +43,7 @@ def build():
         files = archive.namelist()
         assert all(name in files for name in ('config.xml', 'index.html', 'app.js', 'core.js', 'style.css', 'media/demo.mp4'))
     with zipfile.ZipFile(WEB_ARCHIVE, 'w', zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
-        for path in sorted(APP.rglob('*')):
+        for path in sorted(APP.rglob('*'), key=lambda path: path.relative_to(APP).as_posix()):
             if path.is_file():
                 archive.writestr(entry(path.relative_to(APP).as_posix()), asset_bytes(path), compress_type=zipfile.ZIP_DEFLATED, compresslevel=9)
     manifest = {'name': 'Legacy TV Hub', 'version': VERSION, 'widget_version': WIDGET_VERSION, 'archive': ARCHIVE.name,

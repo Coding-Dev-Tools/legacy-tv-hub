@@ -4,9 +4,9 @@
 
 A remote-controlled media app and temporary setup tools for older Samsung TVs. Save direct video links, keep watch positions, and store the app and its bundled demo in a compatible TV browser.
 
-**Preview 0.3.0.** The tested platform is Samsung 2014 Legacy / Orsay (UN55HU7250). Firmware replacement, Tizen upgrades and Paramount+ support are unavailable in this project. See the [feature matrix](docs/compatibility.md) and [measured results](docs/verification.md).
+**Preview 0.3.1.** The tested platform is Samsung 2014 Legacy / Orsay (UN55HU7250). Firmware replacement, Tizen upgrades and Paramount+ support are unavailable in this project. See the [feature matrix](docs/compatibility.md) and [measured results](docs/verification.md).
 
-[Browser preview](https://coding-dev-tools.github.io/legacy-tv-hub/app/) · [Download packages](https://github.com/Coding-Dev-Tools/legacy-tv-hub/releases/tag/v0.3.0) · [Installation details](docs/standalone-browser.md)
+[Browser preview](https://coding-dev-tools.github.io/legacy-tv-hub/app/) · [Download packages](https://github.com/Coding-Dev-Tools/legacy-tv-hub/releases/tag/v0.3.1) · [Installation details](docs/standalone-browser.md)
 
 ![Legacy TV Hub home screen](assets/home.png)
 
@@ -53,7 +53,7 @@ python build.py
 python serve.py --tv YOUR_TV_IP
 ```
 
-The build creates native widget **0.300**, portable web **0.3.0**, and offline web **0.3.0** archives. `release.json` and `SHA256SUMS` record their sizes and checksums. The native sync server uses port 80. Installation still requires Samsung's on-TV developer/sync workflow; see [installation and removal](docs/samsung-legacy.md). This package does not flash the TV.
+The build creates native widget **0.301**, portable web **0.3.1**, and offline web **0.3.1** archives. `release.json` and `SHA256SUMS` record their sizes and checksums. The native sync server uses port 80. Installation still requires Samsung's on-TV developer/sync workflow; see [installation and removal](docs/samsung-legacy.md). This package does not flash the TV.
 
 ## Develop and verify
 
@@ -72,4 +72,4 @@ Browser tests use a separate headless profile and exercise complete H.264/AAC pl
 
 [GitHub Actions](.github/workflows/checks.yml) runs the core/ES5 and Python checks on Linux and Windows, checks generated release metadata, and runs browser playback checks on Linux. All runtime application scripts must parse as ES5. ZIP entries use fixed dates, Unix attributes and normalized text; repeat-build checks cover all three packages.
 
-See [CONTRIBUTING](CONTRIBUTING.md), [security reporting](SECURITY.md), the [0.3.0 release notes](docs/release-0.3.0.md), and [OS-replacement research](docs/os-replacement.md). Compatibility reports should include actual installation, remote input, complete playback and restart results, with serial numbers, network names, accounts and pairing data omitted. MIT licensed; see [LICENSE](LICENSE).
+See [CONTRIBUTING](CONTRIBUTING.md), [security reporting](SECURITY.md), the [0.3.1 release notes](docs/release-0.3.1.md), and [OS-replacement research](docs/os-replacement.md). Compatibility reports should include actual installation, remote input, complete playback and restart results, with serial numbers, network names, accounts and pairing data omitted. MIT licensed; see [LICENSE](LICENSE).
