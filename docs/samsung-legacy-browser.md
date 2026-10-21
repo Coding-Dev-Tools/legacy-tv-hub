@@ -10,7 +10,7 @@ python tools/samsung_legacy_browser.py --tv YOUR_TV_IP --url YOUR_COMPLETE_APP_U
 
 Both placeholders must be replaced. The default expected model is `UN55HU7250`; `--expected-model` can select another exact model, but no other model has passed hardware testing. The initial descriptor paths and port 8080 control adapter were observed on NT14U. This is not universal discovery across all Samsung generations.
 
-For a local development test, first run `python build.py` and `python serve.py --tv YOUR_TV_IP`. In another terminal, give the launcher the server's printed HTTP URL. Stop the server after testing. For continuing use without a permanent PC, a compatible independently hosted copy or completed native installation is required. Neither delivery method has yet passed on this unit: native widget installation remains unverified, and a GitHub-hosted HTTPS image failed even though a Samsung-hosted HTTPS image loaded.
+For a local development test, first run `python build.py` and `python serve.py --tv YOUR_TV_IP`. In another terminal, give the launcher the server's printed HTTP URL. Stop the server after testing. An optional [AppCache build](standalone-browser.md) subsequently passed a fresh document reopen and full demo with its asset server closed. Persistence across browser/TV restart remains unverified. A compatible independently hosted copy or completed native installation offers other delivery paths, but neither has passed on this unit: native widget installation remains unverified, and a GitHub-hosted HTTPS image failed even though a Samsung-hosted HTTPS image loaded.
 
 ## What the result means
 

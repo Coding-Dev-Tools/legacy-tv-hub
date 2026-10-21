@@ -25,6 +25,7 @@ def widgetlist(host, port, release):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--preview', action='store_true', help='Bind localhost for a desktop browser preview')
+    parser.add_argument('--offline', action='store_true', help='Serve the verified optional AppCache build from dist/offline')
     parser.add_argument('--tv', help='TV IPv4 address; required for a local-network installation server')
     parser.add_argument('--port', type=int, help='Default: 8766 for preview; 80 for TV sync')
     parser.add_argument('--duration', type=int, default=900, help='Server lifetime in seconds, up to 3600')
@@ -49,13 +50,18 @@ def main():
     port = args.port or (8766 if args.preview else 80)
     if not 1 <= port <= 65535:
         parser.error('Invalid port')
-    release = json.loads((ROOT / 'release.json').read_text(encoding='utf-8'))
-    package = ROOT / release['archive']
-    if package.parent != ROOT or not package.is_file() or hashlib.sha256(package.read_bytes()).hexdigest() != release['sha256']:
-        raise RuntimeError('Package checksum mismatch; rebuild with build.py before serving')
-    app_files = {'/' + path.relative_to(ROOT / 'app').as_posix(): path for path in (ROOT / 'app').rglob('*') if path.is_file()}
-    app_files['/'] = ROOT / 'app' / 'index.html'
-    manifest = widgetlist(bind, port, release)
+    release, package, manifest = None, None, None
+    if args.offline:
+        from tools.build_offline_web import verified_files
+        app_files = verified_files(ROOT / 'dist' / 'offline')
+    else:
+        release = json.loads((ROOT / 'release.json').read_text(encoding='utf-8'))
+        package = ROOT / release['archive']
+        if package.parent != ROOT or not package.is_file() or hashlib.sha256(package.read_bytes()).hexdigest() != release['sha256']:
+            raise RuntimeError('Package checksum mismatch; rebuild with build.py before serving')
+        app_files = {'/' + path.relative_to(ROOT / 'app').as_posix(): path for path in (ROOT / 'app').rglob('*') if path.is_file()}
+        app_files['/'] = ROOT / 'app' / 'index.html'
+        manifest = widgetlist(bind, port, release)
     counts = {'widgetlist_requests': 0, 'package_requests': 0}
 
     class Handler(http.server.BaseHTTPRequestHandler):
@@ -73,7 +79,7 @@ def main():
                 self.send_error(403)
                 return
             path = urllib.parse.unquote(urllib.parse.urlsplit(self.path).path)
-            if path == '/widgetlist.xml':
+            if path == '/widgetlist.xml' and manifest is not None:
                 counts['widgetlist_requests'] += 1
                 self.send_response(200)
                 self.send_header('Content-Type', 'application/xml; charset=utf-8')
@@ -82,7 +88,7 @@ def main():
                 if body:
                     self.wfile.write(manifest)
                 return
-            file = package if path == '/Widget/' + release['archive'] else app_files.get(path)
+            file = package if package is not None and path == '/Widget/' + release['archive'] else app_files.get(path)
             if not file:
                 self.send_error(404)
                 return
@@ -109,9 +115,11 @@ def main():
                     self.send_error(416)
                     return
             self.send_response(206 if header else 200)
-            self.send_header('Content-Type', mimetypes.guess_type(file)[0] or 'application/octet-stream')
+            self.send_header('Content-Type', 'text/cache-manifest' if file.suffix == '.appcache' else (mimetypes.guess_type(file)[0] or 'application/octet-stream'))
             self.send_header('Content-Length', str(end-start+1))
             self.send_header('Accept-Ranges', 'bytes')
+            if args.offline:
+                self.send_header('Cache-Control', 'no-cache')
             if header:
                 self.send_header('Content-Range', 'bytes ' + str(start) + '-' + str(end) + '/' + str(file.stat().st_size))
             self.end_headers()
@@ -132,7 +140,9 @@ def main():
     server.timeout = 1
     server.daemon_threads = True
     print('Temporary server: http://' + bind + ':' + str(port) + '/', flush=True)
-    if not args.preview:
+    if args.offline:
+        print('Offline browser copy: wait for the TV to report that the copy is stored before stopping this server. This is not native installation.', flush=True)
+    if not args.preview and not args.offline:
         print('Legacy User App Sync server IP: ' + bind + '. Port 80 is required by the documented TV flow.', flush=True)
     print('Stops in ' + str(args.duration) + ' seconds. Ctrl+C also stops it. No installation is triggered by this script.', flush=True)
     deadline = time.monotonic() + args.duration

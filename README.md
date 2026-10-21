@@ -2,11 +2,11 @@
 
 A shared, remote-friendly media app for older smart TVs, with separate installation adapters for each platform.
 
-**Preview 0.2. This is an app project, not universal TV firmware. It does not enable Paramount+ or upgrade a TV's browser engine or DRM.** The first native package targets Samsung's 2014 Legacy platform. Other manufacturers are in scope, but their native adapters are not implemented yet.
+**Preview 0.2.1. This is an app project, not universal TV firmware. It does not enable Paramount+ or upgrade a TV's browser engine or DRM.** The native package remains version 0.200 and targets Samsung's 2014 Legacy platform. Other manufacturers are in scope, but their native adapters are not implemented yet.
 
-[Open the browser app](https://coding-dev-tools.github.io/legacy-tv-hub/app/) · [Download preview packages](https://github.com/Coding-Dev-Tools/legacy-tv-hub/releases/tag/v0.2.0)
+[Open the browser app](https://coding-dev-tools.github.io/legacy-tv-hub/app/) · [Offline browser copy](docs/standalone-browser.md) · [Download previews](https://github.com/Coding-Dev-Tools/legacy-tv-hub/releases)
 
-**Modern streaming replacement acceptance: not met.** See the [feature matrix](docs/compatibility.md) and [latest test results](docs/verification.md#october-20-evening-physical-browser-execution). Passing the demo does not establish subscription-service compatibility.
+**Modern streaming replacement acceptance: not met.** See the [feature matrix](docs/compatibility.md) and [latest cache test](docs/verification.md#october-21-cached-browser-copy). Passing the demo does not establish subscription-service compatibility.
 
 The public browser build runs independently of your computer. An older TV still needs a compatible browser, TLS connection and video decoder.
 
@@ -19,6 +19,7 @@ The public browser build runs independently of your computer. An older TV still 
 - An on-screen keyboard for entering links with a TV remote.
 - Play/pause, seeking, clear playback errors and high contrast mode.
 - A bundled offline video for checking playback.
+- An optional [browser-cache build](docs/standalone-browser.md). The research TV reopened the app and completed its demo with the asset server stopped. Persistence across a power cycle remains unverified.
 - An optional Samsung Legacy native-player bridge, with remote-accessible browser fallback, and read-only firmware information. Both native APIs still need physical-TV validation; see [adapter details](docs/native-player.md).
 - No account, analytics, CDN scripts or runtime package dependencies.
 
@@ -29,7 +30,7 @@ The app plays formats the existing TV player supports. A streaming service's web
 | Target | Current evidence | Installation |
 | --- | --- | --- |
 | Desktop Chromium | Browser preview exercised; see [verification](docs/verification.md) | `python serve.py --preview` |
-| Samsung 2014 Legacy / Orsay | The shared browser app executed on a physical UN55HU7250; its real bundled video, pause/resume, return home and a storage round-trip passed. **Native installation/player and hardware remote input remain unverified.** | Native user-widget ZIP, temporary sync server and [measured browser-launch method](docs/samsung-legacy-browser.md) provided |
+| Samsung 2014 Legacy / Orsay | The shared browser app executed on a physical UN55HU7250; its bundled video, pause/resume, return home and a storage round-trip passed. A later copy reopened and played the clip from browser cache with its asset server closed. **Cold-start persistence, native installation/player and hardware remote input remain unverified.** | Native user-widget ZIP, temporary sync server, [browser-cache copy](docs/standalone-browser.md) and [measured browser-launch method](docs/samsung-legacy-browser.md) provided |
 | Other TVs with an HTML5 browser | Shared ES5 app is the candidate; model-specific browser/video/TLS tests are required | Browser build; native installation varies |
 | Samsung Tizen | Native adapter not implemented | Requires its own WGT/signing workflow |
 | LG webOS / NetCast | Native adapters not implemented | Requires the appropriate platform package and available developer installation path |
@@ -64,7 +65,7 @@ It serves `widgetlist.xml` and the package on port 80, accepts only the named TV
 
 ## Develop and test
 
-The [physical browser test record](docs/verification.md#october-20-evening-physical-browser-execution) documents the first on-TV execution of the shared app. A temporary PC served that test. Independent hosting or a completed native installation is still required for use without a permanent PC; the tested GitHub-hosted image failed to load on this TV.
+The [physical browser test record](docs/verification.md#october-20-evening-physical-browser-execution) documents the first on-TV execution of the shared app. A later [cache test](docs/standalone-browser.md) reopened and played the app's demo with its asset server closed. It removes continuous app serving for that measured browser session; power-cycle persistence and permanent installation remain unverified. The tested GitHub-hosted image failed to load on this TV.
 
 ```sh
 npm ci --ignore-scripts

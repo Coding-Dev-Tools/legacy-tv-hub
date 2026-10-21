@@ -1,0 +1,94 @@
+{
+  "checked_utc": "2026-10-21T06:27:03Z",
+  "model": "UN55HU7250",
+  "platform": "Samsung 2014 Legacy / NT14U",
+  "user_agent": "Mozilla/5.0 (SMART-TV; X11; Linux armv7l) AppleWebKit/537.42 (KHTML, like Gecko) Chromium/25.0.1349.2 Chrome/25.0.1349.2 Safari/537.42",
+  "initial_shared_app_trial": {
+    "cached_event_utc": "2026-10-21T06:16:20Z",
+    "different_document_executed_utc": "2026-10-21T06:16:37Z",
+    "asset_listener_closed_utc": "2026-10-21T06:16:47Z",
+    "new_app_document_loaded_utc": "2026-10-21T06:17:01Z",
+    "new_document_instance": true,
+    "asset_requests_after_listener_closed": 0,
+    "video_ended_utc": "2026-10-21T06:17:13Z",
+    "video": {
+      "time": 10.02299976348877,
+      "duration": 10.02299976348877,
+      "paused": true,
+      "ended": true,
+      "error": null
+    },
+    "returned_home": false,
+    "offline_status_text_observed": []
+  },
+  "preview_0_2_1_cache_adapter_trial": {
+    "cached_event_utc": "2026-10-21T06:23:44Z",
+    "different_document_executed_utc": "2026-10-21T06:25:36Z",
+    "asset_listener_closed_utc": "2026-10-21T06:25:40Z",
+    "new_app_document_loaded_utc": "2026-10-21T06:25:43Z",
+    "new_document_instance": true,
+    "asset_requests_after_listener_closed": 0,
+    "video_ended_utc": "2026-10-21T06:25:55Z",
+    "video": {
+      "time": 10.02299976348877,
+      "duration": 10.02299976348877,
+      "paused": true,
+      "ended": true,
+      "error": null
+    },
+    "returned_home": true,
+    "offline_status_text_observed": [
+      "Checking offline copy...",
+      "Checking offline storage...",
+      "Offline copy stored.",
+      "Saving offline copy...",
+      "Using saved copy; update check failed."
+    ]
+  },
+  "test_instrumentation": {
+    "private_observer_added_to_entry_document": true,
+    "shared_app_and_offline_adapter_scripts_unmodified": true,
+    "diagnostic_listener_served_assets": false,
+    "diagnostic_listener_permanent": false,
+    "collector_in_public_build": false
+  },
+  "scope": {
+    "warm_document_reopen_without_asset_server": "passed",
+    "browser_process_restart": "not_verified",
+    "tv_power_cycle_persistence": "not_verified",
+    "physical_remote_key_delivery": "not_verified",
+    "human_picture_and_audible_sound_confirmation": "not_obtained",
+    "native_widget_installation": "not_verified",
+    "firmware_change": false,
+    "paramount_plus_login_and_playback": false,
+    "other_subscription_services_verified": [],
+    "modern_streaming_replacement_requirement": "not_met"
+  },
+  "browser_stop_api": {
+    "advertised_allowStop": true,
+    "delete_run_http_status": 404,
+    "process_stop_verified": false
+  },
+  "automated_checks": {
+    "python_test_methods_passed": 23,
+    "javascript_core_and_native_contract_checks": "passed; native hardware remains unverified",
+    "es5_all_application_scripts": "passed"
+  },
+  "clean_public_copy_delivery": {
+    "public_offline_server_used": true,
+    "asset_integrity_verified_by_server": true,
+    "cache_updateready_utc": "2026-10-21T06:28:15Z",
+    "status_observed": "Update saved. Reopen to use it.",
+    "cache_swap_completed": true,
+    "asset_listener_closed_before_clean_launch": true,
+    "clean_index_launch_accepted": true,
+    "clean_index_launch_utc": "2026-10-21T06:29:47Z",
+    "final_clean_page_instrumented": false,
+    "final_clean_page_execution_directly_observed": false
+  },
+  "test_shutdown": {
+    "checked_utc": "2026-10-21T06:31:13Z",
+    "all_task_asset_and_result_listeners_closed": true,
+    "permanent_background_pc_process_created": false
+  }
+}

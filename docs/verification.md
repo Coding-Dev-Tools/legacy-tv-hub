@@ -92,6 +92,16 @@ The new [browser launch tool](samsung-legacy-browser.md) reproduces the measured
 
 See the [sanitized physical record](evidence/physical-browser-2026-10-20.json). The test's private observer collected its own playback/storage/capability results only; it is not included in the distributed app. **A working local browser copy does not meet independent installation, replacement-OS or Paramount+ acceptance.** The temporary native installer remains a separate test, with no verified installation yet.
 
+## October 21: cached browser copy
+
+Two physical-TV trials stored the app and bundled clip with HTML5 AppCache. In each trial a different document executed, the app asset listener was closed, and a fresh app document reopened from cache. The full 10.023-second H.264/AAC clip reached `ended=true` without a video error. The preview 0.2.1 adapter trial also returned home and displayed its offline-copy status. A separate private result listener served no app assets.
+
+The production offline builder creates a relative-path manifest and a reproducible ZIP. The temporary server checks all declared asset hashes and supplies the required manifest MIME type. All **23 Python test methods** passed, including reproducibility, modified-asset rejection, path isolation, manifest reachability and ranged video. JavaScript state/native-contract checks and ES5 parsing also passed. The native tests remain mocks, not hardware validation.
+
+After the measured offline trial, the actual public offline server briefly supplied the clean build. The TV reported `updateready` and **Update saved. Reopen to use it.**; the cache was swapped to that build. The public app contains no diagnostic observer or result listener. See the [sanitized evidence](evidence/physical-cache-2026-10-21.json), [archive hashes](evidence/offline-web-0.2.1.json) and [reproduction steps](standalone-browser.md).
+
+This establishes a document reopen without continuous asset serving. Browser-process restart and TV power-cycle persistence remain unverified: the browser's advertised stop endpoint returned HTTP 404. No physical remote key event was captured, and picture/audible sound still lack human confirmation. The normal native sync server had recorded no widget downloads or startup results. No firmware, browser engine, new decoder or protected-service integration was installed. **Paramount+ and the overall modern-TV replacement requirement remain unmet.**
+
 ## Unverified
 
-Native user-widget installation/player, actual physical TV-app key delivery, audible sound, app library/resume persistence across a TV restart, native removal, independent delivery on this TV without a permanent PC, other TV browsers/manufacturers and subscription streaming. No firmware was installed. No Paramount+ login or playback has been demonstrated.
+Native user-widget installation/player, actual physical TV-app key delivery, audible sound, app library/resume persistence across a TV restart, native removal, cached delivery across a browser/TV restart, other TV browsers/manufacturers and subscription streaming. A warm cached document reopen without its asset server has passed. No firmware was installed. No Paramount+ login or playback has been demonstrated.

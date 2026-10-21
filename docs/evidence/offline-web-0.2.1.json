@@ -1,0 +1,27 @@
+{
+  "format": "legacy-tv-hub-offline-v1",
+  "version": "0.2.1",
+  "files": {
+    "LICENSE": "5178269b4f846bfd2d213c724d10bb62bc56d776e15c076cca17ec12a94a14e7",
+    "app.js": "fae2cc37c5fea8aeffcda9c55b38b474c90c3cb6e2018741df8fc38223085d73",
+    "core.js": "b37bf05adf11459839b110a4ee8dc6c75bf3477b3cb35ee0c044064395b86400",
+    "icons/106.png": "9247a0c79db19123e2a20ec79090819ce393d8db0a5bc7e00da7ae5b3deb5734",
+    "icons/115.png": "f496739b383e9801a1f893d6147b491b8d61f4bf4b2b9f585f67cb2cf0da686c",
+    "icons/85.png": "e485a7946a4501c55e823dfb73c8aaeec3df5a03e0ebae150076031cce64b29f",
+    "icons/95.png": "5e6659d9034374b4025d5a642c003fe89fb264acf0dd668c852af5a368747f83",
+    "index.html": "fcaf4a3ba3e9a4beca032a1bdb940bef64890cdf2df2ecfa525e9002304662a8",
+    "manifest.appcache": "7a93297304cfc22870c024164678e47124838151807657e271413db8a6a8a5fd",
+    "media/demo.mp4": "688046348ffda033c729e8a958297b8e947a804d7b8df337c9ce0e1a26813149",
+    "offline.js": "c795087e47d24582340e930d44db1bc0100afce719e4463881185d691719daa8",
+    "style.css": "1c9e56554b90c3de57bef713ecb384fa671632f41530ac976fd64d3e86e3beee"
+  },
+  "firmware": false,
+  "native_installation": false,
+  "enables_paramount_plus": false,
+  "power_cycle_persistence_verified": false,
+  "archive": {
+    "name": "LegacyTVHub_offline_web_0.2.1.zip",
+    "bytes": 1486181,
+    "sha256": "5df0270038c9c5852b1baa7aacbe006b22072b4e812e8685a1e0190efefc015d"
+  }
+}
