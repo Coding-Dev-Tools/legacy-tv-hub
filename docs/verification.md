@@ -18,6 +18,12 @@ The TV's identity API responded and identified `UN55HU7250` / `14_NT14U_2D_BT`. 
 
 A later SOAP `SendKeyCode` request to the advertised MultiScreenService timed out, so whether the TV acted on it is unconfirmed. Afterward, the identity, multiscreen and browser services all stopped responding; a network wake check did not restore a response. The cause of the lost reachability is unknown. No further control requests were sent.
 
+## October 22, 06:01 UTC: blank display and pairing retry
+
+The TV's Legacy identity endpoint responded over the 2014 `/ms/1.0/` service and again reported firmware `Unknown`; Developer Mode remained off and no developer IP was configured. A read-only source query returned HDMI1, while the browser-mode action returned `NOTOK_NotSupport`. The owner reports that pressing Home on the physical remote still leaves the display blank. No TV image or power-state value was available through the queried service.
+
+The documented H-series encrypted pairing page was started and reported `running`, but the owner saw no PIN on screen. One attempt with a previously supplied PIN failed; it may have expired. No remote key was sent. The pairing page was closed afterward. The temporary port-80 sync server was stopped without an observed TV manifest or package fetch; final request counters were not captured. Developer sign-in and App Sync remain uncompleted. No app, firmware or OS was installed or changed, and Paramount+ was not tested. See the [sanitized record](evidence/remote-reconnect-2026-10-22.json).
+
 ## October 21, 23:39 New York: network reconnection
 
 A wake-on-LAN packet addressed to the TV's single known network neighbor was followed by successful identity and service checks. Samsung's API identified the target as UN55HU7250 / 2014 NT14U, US region, wireless. Its firmware field returned `Unknown`; the owner-reported 1330 could not be confirmed remotely. Three UPnP descriptions and the known control-service TCP ports then responded. No browser launch, firmware update, cold boot, or Paramount+ playback was attempted during this check. The [sanitized record](evidence/reconnected-tv-2026-10-21.json) distinguishes restored network access from software-upgrade results.

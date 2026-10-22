@@ -6,7 +6,7 @@ A remote-controlled media hub and temporary setup tools for older Samsung TVs. S
 
 **Preview 0.3.2.** The hardware previously tested is Samsung 2014 Legacy / Orsay (UN55HU7250); this UI revision still needs a physical-TV check. It refreshes the remote-friendly browser interface and makes its software-only limits explicit. It does not replace Smart Hub, update firmware or provide Paramount+ or other protected streaming services. See the [feature matrix](docs/compatibility.md) and [measured results](docs/verification.md).
 
-**Latest native installation attempt (October 22, 2026): not installed.** The TV was reachable and the native widget built, but its Samsung API reported Developer Mode off; a 120-second app-sync server run received no manifest or package request. No firmware, OS or TV app was changed. See the [measured install attempt](docs/verification.md#october-22-0526-utc-native-install-attempt).
+**Latest native installation attempt (October 22, 2026): not installed.** The TV is reachable, but Developer Mode remains off. Its current input was HDMI1; the owner reports that Home still leaves the display blank. The documented 2014 encrypted remote-pairing page could be started, but no code appeared on screen, so no key was sent. The temporary app-sync server stopped without an observed manifest or package fetch; its final counters were not captured. No firmware, OS or TV app was changed. See the [measured install attempts](docs/verification.md#october-22-0601-utc-blank-display-and-pairing-retry).
 
 [Browser preview](https://coding-dev-tools.github.io/legacy-tv-hub/app/) · [GitHub release packages](https://github.com/Coding-Dev-Tools/legacy-tv-hub/releases) · [Installation details](docs/standalone-browser.md)
 

@@ -1,0 +1,35 @@
+{
+  "measured_at_utc": "2026-10-22T06:01:20Z",
+  "target_model": "UN55HU7250",
+  "platform_identifier": "14_NT14U_2D_BT",
+  "read_only_identity": {
+    "ms_1_0_http_status": 200,
+    "firmware_version": "Unknown",
+    "developer_mode": false,
+    "developer_ip_configured": false
+  },
+  "screen_state": {
+    "external_source": "HDMI1",
+    "browser_mode": "NOTOK_NotSupport",
+    "browser_url": "unavailable",
+    "owner_reported_physical_home_result": "display remains blank",
+    "screen_image_or_power_state_available": false
+  },
+  "legacy_remote_pairing": {
+    "pairing_page_started": true,
+    "pairing_service_reported_state": "running",
+    "visible_pin_reported_by_owner": false,
+    "one_previously_supplied_pin_attempt": "expired or rejected",
+    "remote_key_sent": false,
+    "pairing_page_closed_after_attempt": true
+  },
+  "native_widget_sync": {
+    "temporary_port_80_server_stopped": true,
+    "manifest_or_package_fetch_observed": false,
+    "final_request_counters_captured": false,
+    "installation_confirmed": false
+  },
+  "firmware_or_os_changed": false,
+  "paramount_plus_tested": false,
+  "privacy": "Private addresses, Wi-Fi details, device identifiers, pairing codes and account data are omitted."
+}
