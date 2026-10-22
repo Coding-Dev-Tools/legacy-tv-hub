@@ -21,7 +21,11 @@ The SamyGO H Root Enabler thread narrows one earlier uncertainty: the method is 
 
 Even if root were established, the available H-series Linux work is a [Debian chroot](https://forum.samygo.tv/viewtopic.php?t=11249) running under Samsung's existing kernel and platform, not a bootable TV OS. No NT14U replacement image, complete board support package, or recovery-tested boot path was found. [Paramount's supported Samsung platform](https://support.paramountplus.com/s/article/PI-On-which-devices-can-I-watch-Paramount?language=en_US) starts with later Tizen TVs; root access does not create its certified application or protected playback stack.
 
-The read-only identity probe reached the TV at 192.168.1.169 at 03:39 UTC on October 22 and confirmed model UN55HU7250, hardware family `14_NT14U_2D_BT`, and US region, but the firmware field was `Unknown`. A later probe at 04:45 UTC timed out. No remote root or firmware action was attempted.
+The read-only identity probe reached the TV at 192.168.1.169 at 03:39 UTC on October 22 and confirmed model UN55HU7250, hardware family `14_NT14U_2D_BT`, and US region, but the firmware field was `Unknown`. Probes at 04:45 and 04:48 UTC timed out. No remote root or firmware action was attempted.
+
+## Follow-up: Samsung NT14 source listing, October 22, 2026
+
+Samsung's Open Source Release Center exposes a `15_DTV_NT14` package listing for GPL/LGPL components including the Linux kernel, `ntkdriver.ko`, `samsung_mali.ko`, WebKit and FFmpeg. This is a concrete source lead for the NT14 family. The listing is for the 2015 `15_` package, while this target identifies as 2014 `14_NT14U`; the page's component list does not establish that its kernel, board configuration or modules match the target. It also does not provide a complete signed firmware/boot chain or Paramount's licensed app and DRM integration. The package is therefore material for a future version/ABI comparison, not an installable replacement image. [Samsung NT14 source listing](https://opensource.samsung.com/opensource/15_DTV_NT14/seq/7).
 
 ## Reproduce the offline inspection
 
