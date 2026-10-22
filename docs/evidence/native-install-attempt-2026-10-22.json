@@ -1,5 +1,5 @@
 {
-  "measured_at_utc": "2026-10-22T05:26:00Z",
+  "measured_at_utc": "2026-10-22T05:29:00Z",
   "target_model": "UN55HU7250",
   "platform_identifier": "14_NT14U_2D_BT",
   "region": "US",
@@ -24,6 +24,13 @@
     "duration_seconds": 120,
     "tv_manifest_requests": 0,
     "tv_package_requests": 0
+  },
+  "follow_up_remote_input": {
+    "service": "MultiScreenService SOAP SendKeyCode",
+    "request_result": "Timed out; whether the TV acted on the request is unconfirmed",
+    "subsequent_identity_multiscreen_browser_checks": "Timed out",
+    "network_wake_check": "No response restored",
+    "cause_of_lost_reachability": "Unknown"
   },
   "installed": false,
   "firmware_changed": false,
