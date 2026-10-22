@@ -41,10 +41,13 @@ Modern browsers have removed AppCache. Use the regular [browser app](https://cod
 | Cached app and bundled H.264/AAC demo | Preview 0.3.1 document reopen and complete playback verified with asset serving stopped. Preview 0.3.2 needs its own TV check; power-cycle persistence remains unverified. See [evidence](docs/verification.md) |
 | Samsung native user widget | Packaged preview; installation/removal and optional native PLAYER remain unverified |
 | Newer official Samsung firmware | Use Samsung's exact-model updater; this repository has no firmware image |
+| New Samsung Smart Hub/Tizen on the HU7250 family | Samsung SEK-4500/ZA external Evolution Kit documented; availability of a complete working unit and Paramount+ are unverified. It does not replace the TV's internal firmware. See the [installation and OS research](docs/os-replacement.md#official-external-tizen-platform-upgrade-sek-4500za) |
 | Paramount+ and other unsupported subscription services | No integration or verified protected playback |
 | Tizen, webOS, Android TV and Roku native packages | Not implemented; each needs its own adapter and supported installation route |
 
 A service's watch-page URL is not a direct media link. Root access, a new home screen or a codec alone does not provide an authorized subscription player or its protected playback components.
+
+For owners of the HU7250 family who want Samsung's newer TV interface, the researched hardware path is the external **SEK-4500/ZA Evolution Kit**. Samsung documents Tizen and HU7200-series compatibility; this does not install an OS on the TV's main board. Paramount+ on this kit is unverified, and it is a 2018-era platform rather than a current 2026 TV OS. See the [model-specific OS investigation](docs/os-replacement.md#official-external-tizen-platform-upgrade-sek-4500za) before considering a used unit.
 
 ## Native Samsung 2014 package
 
