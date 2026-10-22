@@ -8,6 +8,10 @@ The TV could not be reached at its last reported address during this run. Its kn
 
 Paramount+ login/playback and other protected streaming were not attempted: this browser app adds no service client, current DRM or TV operating-system support.
 
+## October 22, 05:13 UTC: read-only network reconnection
+
+The TV now responds on its LAN identity service. A read-only request returned HTTP 200 and identified `UN55HU7250`; the advertised MainTVAgent2 and MultiScreenService descriptions also responded. These descriptions do not expose the installed firmware version, and the MainTVAgent2 action list contains no firmware-version or firmware-update action. The built-in updater's on-screen result therefore remains unknown. No remote-control, app-installation or firmware-update command was sent, and no TV software changed. This confirms network reachability only; it does not establish that an OS update can be deployed over Wi-Fi. See the [sanitized measurement](evidence/reconnected-tv-2026-10-22.json).
+
 ## October 21, 23:39 New York: network reconnection
 
 A wake-on-LAN packet addressed to the TV's single known network neighbor was followed by successful identity and service checks. Samsung's API identified the target as UN55HU7250 / 2014 NT14U, US region, wireless. Its firmware field returned `Unknown`; the owner-reported 1330 could not be confirmed remotely. Three UPnP descriptions and the known control-service TCP ports then responded. No browser launch, firmware update, cold boot, or Paramount+ playback was attempted during this check. The [sanitized record](evidence/reconnected-tv-2026-10-21.json) distinguishes restored network access from software-upgrade results.

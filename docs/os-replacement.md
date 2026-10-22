@@ -39,7 +39,7 @@ The SEK-4500 is an older product; current listings can be used, incomplete or pa
 
 Even if root were established, the available H-series Linux work is a [Debian chroot](https://forum.samygo.tv/viewtopic.php?t=11249) running under Samsung's existing kernel and platform, not a bootable TV OS. No NT14U replacement image, complete board support package, or recovery-tested boot path was found. [Paramount's supported Samsung platform](https://support.paramountplus.com/s/article/PI-On-which-devices-can-I-watch-Paramount?language=en_US) starts with later Tizen TVs; root access does not create its certified application or protected playback stack.
 
-The read-only identity probe reached the TV at 192.168.1.169 at 03:39 UTC on October 22 and confirmed model UN55HU7250, hardware family `14_NT14U_2D_BT`, and US region, but the firmware field was `Unknown`. Probes at 04:45 and 04:48 UTC timed out. No remote root or firmware action was attempted.
+The read-only identity probe at 03:39 UTC on October 22 confirmed model UN55HU7250, hardware family `14_NT14U_2D_BT`, and US region, but its firmware field was `Unknown`. Probes at 04:45 and 04:48 UTC timed out. At 05:13 UTC, the TV's read-only identity endpoint responded again and confirmed UN55HU7250; its exposed service descriptions still did not provide the installed firmware version or a firmware-update action. No remote root or firmware action was attempted. See the [latest sanitized network check](verification.md#october-22-0513-utc-read-only-network-reconnection).
 
 ## Follow-up: Samsung NT14 source listing, October 22, 2026
 

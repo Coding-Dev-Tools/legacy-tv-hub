@@ -1,0 +1,30 @@
+{
+  "observed_at_utc": "2026-10-22T05:13Z",
+  "target_model": "UN55HU7250",
+  "probe_type": "read-only LAN identity and service-description requests",
+  "identity_description": {
+    "http_status": 200,
+    "model_name": "UN55HU7250",
+    "firmware_version_field_present": false
+  },
+  "advertised_services": {
+    "MainTVAgent2_description_http_status": 200,
+    "MultiScreenService_description_http_status": 200,
+    "MainTVAgent2_firmware_version_or_update_action": false
+  },
+  "reachability": {
+    "ping": true,
+    "tcp_7676": "responded",
+    "tcp_80_443_8000_8001_8002_8080_55000": "no response during bounded probe"
+  },
+  "firmware_version": "not exposed by the observed identity and service descriptions",
+  "firmware_update_attempted": false,
+  "firmware_changed": false,
+  "replacement_os_installed": false,
+  "paramount_plus_login_or_playback_tested": false,
+  "notes": [
+    "Reachability and model identity do not establish the TV's installed firmware or show that a newer update is available.",
+    "The probe made no remote-control, installation, or firmware-update request.",
+    "No on-screen update result or TV image was available to inspect."
+  ]
+}
