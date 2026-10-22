@@ -1,11 +1,11 @@
 {
   "name": "legacy-tv-hub",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "private": true,
   "description": "Portable media app and platform adapters for older smart TVs",
   "license": "MIT",
   "tvHub": {
-    "releaseDate": "2026-10-21"
+    "releaseDate": "2026-10-22"
   },
   "scripts": {
     "test": "node test_core.js && node test_native_player.js && node test_offline_cache.js && node check_es5.js",

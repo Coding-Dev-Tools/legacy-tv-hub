@@ -1,5 +1,13 @@
 # Verification record
 
+## October 22: preview 0.3.2 browser-interface refresh
+
+Preview 0.3.2 passed the repository's desktop checks: five Playwright browser tests in Chromium, all Node core/native/offline/ES5 checks, all 25 Python tests, and a complete package build. These checks cover the refreshed browser UI and bundled demo in desktop Chromium. They do not establish operation on the Samsung browser.
+
+The TV could not be reached at its last reported address during this run. Its known browser-control ports did not answer, and the local network table did not provide a usable device address for a targeted wake. No package or browser command was sent to the TV, and no firmware was changed. Therefore this preview's visual appearance, remote operation, cached reopen, library persistence and bundled-demo playback have **not** been verified on the TV. The earlier 0.3.1 physical cached-reopen and demo result remains valid only for that version. A cold boot and cache persistence across power loss remain **unverified**. The sanitized run record is [here](evidence/ui-refresh-2026-10-22.json).
+
+Paramount+ login/playback and other protected streaming were not attempted: this browser app adds no service client, current DRM or TV operating-system support.
+
 ## October 21, 23:39 New York: network reconnection
 
 A wake-on-LAN packet addressed to the TV's single known network neighbor was followed by successful identity and service checks. Samsung's API identified the target as UN55HU7250 / 2014 NT14U, US region, wireless. Its firmware field returned `Unknown`; the owner-reported 1330 could not be confirmed remotely. Three UPnP descriptions and the known control-service TCP ports then responded. No browser launch, firmware update, cold boot, or Paramount+ playback was attempted during this check. The [sanitized record](evidence/reconnected-tv-2026-10-21.json) distinguishes restored network access from software-upgrade results.

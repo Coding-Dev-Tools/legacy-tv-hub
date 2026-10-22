@@ -21,7 +21,7 @@ python tools/build_offline_web.py
 python serve.py --offline --tv YOUR_TV_IP --port 8769
 ```
 
-The builder creates `dist/offline/` and `dist/LegacyTVHub_offline_web_0.3.1.zip`. The server verifies its asset hashes, exposes only the declared files, serves the manifest as `text/cache-manifest`, and stops automatically after 15 minutes. It needs no native ZIP, firewall changes, accounts or additional packages. For manual serving, stop it after the app reports its stored copy. `--duration` can extend the temporary window up to one hour.
+The builder creates `dist/offline/` and `dist/LegacyTVHub_offline_web_0.3.2.zip`. The server verifies its asset hashes, exposes only the declared files, serves the manifest as `text/cache-manifest`, and stops automatically after 15 minutes. It needs no native ZIP, firewall changes, accounts or additional packages. For manual serving, stop it after the app reports its stored copy. `--duration` can extend the temporary window up to one hour.
 
 Open the server's printed URL in the TV browser, including its port. On the measured Samsung target, the repository's browser launcher can open it over the LAN:
 

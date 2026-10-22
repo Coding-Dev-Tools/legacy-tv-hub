@@ -53,13 +53,17 @@
         return data.items.slice(0).sort(function (a, b) { return b.played - a.played; }).filter(function (item) { return item.played > 0; });
     }
     function home() {
-        begin('home', 'Make room for your videos.', 'A simple home for direct video links, favorites and where you left off.');
+        begin('home', 'Media, made simple.', 'Your saved videos, recent playback and compatible direct media in one place.');
+        content.className = 'home-view';
+        var boundary = put(content, 'div', 'home-boundary');
+        put(boundary, 'strong', '', 'BROWSER APP');
+        put(boundary, 'span', '', ' Uses this TV’s existing software. It does not replace Smart Hub or add streaming services.');
         var cards = put(content, 'div', 'cards'), items = recent();
-        card(cards, '01 / WATCH', 'Play a video', 'Add a direct video link using your remote.', function () { editor(); }, true);
-        card(cards, '02 / COLLECTION', 'My videos', data.items.length + ' saved ' + (data.items.length === 1 ? 'video' : 'videos') + ' on this TV.', function () { library(false); });
+        card(cards, '01 / ADD MEDIA', 'Play a video', 'Add a direct video link using the on-screen keyboard.', function () { editor(); }, true);
+        card(cards, '02 / YOUR LIBRARY', 'My videos', data.items.length + ' saved ' + (data.items.length === 1 ? 'video' : 'videos') + ' on this device.', function () { library(false); });
         card(cards, '03 / PICK UP', 'Continue watching', items.length ? items[0].title : 'Your recently played videos will appear here.', function () { library(true); });
-        card(cards, '04 / TRY IT', 'Play the demo', 'A bundled 10-second video. No internet needed.', demo);
-        card(cards, '05 / COMFORT', 'Display & help', 'Contrast, playback support and app information.', about);
+        card(cards, '04 / OFFLINE SAMPLE', 'Play the demo', 'A bundled 10-second H.264/AAC test clip.', demo);
+        card(cards, '05 / COMPATIBILITY', 'TV & app support', 'See what this browser app can and cannot do.', about);
         focusFirst();
     }
     function library(onlyRecent) {
@@ -124,16 +128,18 @@
         editingField = 'url'; caps = false; url.focus();
     }
     function about() {
-        begin('about', 'Display & help', 'Legacy TV Hub ' + (window.HubVersion || 'development') + ' — a media app for older TV browsers.');
+        begin('about', 'TV & app support', 'Legacy TV Hub ' + (window.HubVersion || 'development') + ' runs inside this TV’s existing browser.');
         var toolbar = put(content, 'div', 'toolbar');
         button(toolbar, data.contrast ? 'Contrast: high' : 'Contrast: standard', function () {
             data.contrast = !data.contrast; document.body.className = data.contrast ? 'high-contrast' : ''; persist(); about();
         }); button(toolbar, 'Home', home);
-        put(content, 'p', 'notice-box', 'This app uses the TV’s existing player. It does not replace the operating system or enable Paramount+ or other unsupported subscription services.');
+        put(content, 'p', 'notice-box', 'Software-only limit: this browser app does not replace Smart Hub, update the TV, or provide Paramount+ and other protected streaming apps.');
         var boxes = put(content, 'div', 'info-grid'), box = put(boxes, 'div', 'info-box');
         put(box, 'h2', '', 'Saved on this device'); put(box, 'p', '', persistent ? 'Your library and watch positions are stored locally. No account or tracking.' : 'Storage is unavailable. Your changes last for this session.');
-        box = put(boxes, 'div', 'info-box'); put(box, 'h2', '', 'Video support'); put(box, 'p', '', 'H.264 MP4: ' + (video.canPlayType('video/mp4; codecs="avc1.42E01E, mp4a.40.2"') || 'not advertised') + '. Playback depends on the link, codec and the TV.');
+        box = put(boxes, 'div', 'info-box'); put(box, 'h2', '', 'Video support'); put(box, 'p', '', 'The bundled H.264/AAC demo is the tested clip. Other links must be direct media and use formats supported by the TV.');
         box = put(boxes, 'div', 'info-box'); put(box, 'h2', '', 'Controls'); put(box, 'p', '', 'Arrows and OK move around the app. Return goes back. During playback, Left/Right seek and OK pauses.');
+        box = put(boxes, 'div', 'info-box'); put(box, 'h2', '', 'Streaming services'); put(box, 'p', '', 'No Paramount+ integration, current Tizen runtime, or new DRM is included. A service watch-page address is not a direct video link.');
+        box = put(boxes, 'div', 'info-box'); put(box, 'h2', '', 'Offline copy'); put(box, 'p', '', 'A new browser document reopened from cache after the setup server stopped. Survival across a TV power cycle is unverified.');
         box = put(boxes, 'div', 'info-box'); put(box, 'h2', '', platform ? platform.name : 'Browser preview'); put(box, 'p', '', navigator.userAgent);
         if (runtimeInfo) {
             box = put(boxes, 'div', 'info-box'); put(box, 'h2', '', 'TV information');

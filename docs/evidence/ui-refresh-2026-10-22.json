@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-22",
+  "release": "0.3.2",
+  "target": "Samsung UN55HU7250 / 2014 Legacy platform",
+  "automated": {
+    "playwright_chromium": {"result": "PASS", "tests": 5},
+    "node_core_native_offline_es5": {"result": "PASS"},
+    "python_unittest": {"result": "PASS", "tests": 25},
+    "package_build": {"result": "PASS", "packages": 3}
+  },
+  "physical_tv": {
+    "network_reachability": "UNAVAILABLE at last reported address; known control ports did not respond",
+    "local_discovery": "No Samsung response observed to SSDP discovery",
+    "targeted_wake": "NOT SENT; no usable single-device network address was available",
+    "preview_0_3_2_launch": "NOT VERIFIED",
+    "remote_navigation": "NOT VERIFIED for preview 0.3.2",
+    "cached_reopen": "NOT VERIFIED for preview 0.3.2",
+    "demo_playback": "NOT VERIFIED for preview 0.3.2",
+    "cold_boot_persistence": "UNVERIFIED",
+    "firmware_changed": false,
+    "paramount_plus_login_or_playback": "NOT ATTEMPTED; no service integration is implemented"
+  }
+}

@@ -37,6 +37,19 @@ test('remote navigation, full video, pause/resume and return home', async ({page
     expect(errors).toEqual([]);
 });
 
+test('home page clearly describes browser-only scope and opens compatibility details', async ({page}) => {
+    await page.goto('/');
+    await expect(page.getByText('BROWSER APP', {exact: true})).toBeVisible();
+    await expect(page.getByText(/does not replace Smart Hub or add streaming services/i)).toBeVisible();
+    await expect(page.getByRole('button', {name: /Play the demo/})).toBeInViewport();
+    await expect(page.getByRole('button', {name: /TV & app support/})).toBeInViewport();
+    await expect(page.locator('footer')).toBeInViewport();
+    await page.getByRole('button', {name: /TV & app support/}).click();
+    await expect(page.getByRole('heading', {name: 'TV & app support'})).toBeVisible();
+    await expect(page.getByText(/does not replace Smart Hub, update the TV, or provide Paramount\+/i)).toBeVisible();
+    await expect(page.getByText(/Survival across a TV power cycle is unverified/i)).toBeVisible();
+});
+
 test('closing before metadata preserves the existing resume point', async ({page, baseURL}) => {
     let release;
     const gate = new Promise(resolve => { release = resolve; });
