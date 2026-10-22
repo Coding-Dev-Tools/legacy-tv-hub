@@ -1,0 +1,27 @@
+{
+  "client_local_date": "2026-10-21",
+  "checked_at_utc": "2026-10-22T03:39:10Z",
+  "model": "UN55HU7250",
+  "platform": "14_NT14U_2D_BT",
+  "region": "US",
+  "network": "wireless",
+  "identity_api_http_status": 200,
+  "firmware_version_from_identity_api": "Unknown",
+  "firmware_version_reported_by_owner": "1330",
+  "matching_upnp_device_descriptions": 3,
+  "reachable_device_service_ports_after_wake": [7676, 8000, 8001, 8080],
+  "wake_on_lan_packets_sent_to_single_tv": 2,
+  "app_asset_server_running": false,
+  "browser_dial_launch_attempted": false,
+  "firmware_installed": false,
+  "replacement_os_installed": false,
+  "cold_boot_observed": false,
+  "restart_persistence_tested": false,
+  "paramount_login_and_protected_playback_tested": false,
+  "notes": [
+    "The TCP reachability check confirmed the Samsung services responded after a single-target wake packet. This is not proof of a cold boot or successful browser execution.",
+    "The device identity API did not expose the installed firmware version. The user-reported value 1330 was not independently confirmed.",
+    "Samsung's exact-model support page listed firmware 1320.0, which is older than the version reported by the owner, so no firmware was installed.",
+    "The check did not establish a 2026 operating system, a Paramount+ installation, or protected playback."
+  ]
+}

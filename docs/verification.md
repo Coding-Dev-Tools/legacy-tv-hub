@@ -1,5 +1,11 @@
 # Verification record
 
+## October 21, 23:39 New York: network reconnection
+
+A wake-on-LAN packet addressed to the TV's single known network neighbor was followed by successful identity and service checks. Samsung's API identified the target as UN55HU7250 / 2014 NT14U, US region, wireless. Its firmware field returned `Unknown`; the owner-reported 1330 could not be confirmed remotely. Three UPnP descriptions and the known control-service TCP ports then responded. No browser launch, firmware update, cold boot, or Paramount+ playback was attempted during this check. The [sanitized record](evidence/reconnected-tv-2026-10-21.json) distinguishes restored network access from software-upgrade results.
+
+Samsung's [exact-model support page](https://www.samsung.com/latin/support/model/UN55HU7250FXZA/) listed 1320.0, below the owner's reported 1330; it was not installed. Samsung's Legacy FAQ says Tizen applications are incompatible with Legacy-platform TVs, while [Paramount+ lists Samsung Tizen models from 2017 onward](https://support.paramountplus.com/s/article/PI-On-which-devices-can-I-watch-Paramount?language=en_US). This connection check therefore does not change the blocked status for a modern OS or Paramount+ playback.
+
 ## October 21: restart verification attempt
 
 The identified TV's last address did not answer SSDP discovery or its identity API at 09:10 UTC. Subsequent direct checks of its three known control ports also timed out. The app asset listener remained closed. A temporary report-only listener could not serve app files and received no TV execution reports during these checks. No remote power command or firmware change was sent. The TV's power state and current address cannot be inferred from timeouts.
