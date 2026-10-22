@@ -1,0 +1,39 @@
+{
+  "measured_at_utc": "2026-10-22T05:26:00Z",
+  "target_model": "UN55HU7250",
+  "platform_identifier": "14_NT14U_2D_BT",
+  "region": "US",
+  "identity_api_http_status": 200,
+  "firmware_version_exposed_by_api": "Unknown",
+  "developer_mode": false,
+  "developer_ip_configured": false,
+  "remote_control_websocket": {
+    "connection_opened": true,
+    "client_reported_as_host": false,
+    "attempted_method": "ms.remote.control",
+    "result": "Rejected by TV as unrecognized; no remote key was accepted"
+  },
+  "native_widget_build": {
+    "name": "Legacy TV Hub",
+    "widget_version": "0.302",
+    "built": true,
+    "sha256": "2a833c150eb94716c75c81d3601a015e735f7fddaf841fc478b359912ab28e1a"
+  },
+  "temporary_user_app_sync_server": {
+    "port": 80,
+    "duration_seconds": 120,
+    "tv_manifest_requests": 0,
+    "tv_package_requests": 0
+  },
+  "installed": false,
+  "firmware_changed": false,
+  "os_changed": false,
+  "paramount_plus_tested": false,
+  "repository_checks": {
+    "npm_test": "passed",
+    "python_unittest_methods": 25,
+    "python_unittest": "passed",
+    "build": "passed"
+  },
+  "privacy": "Private network addresses, device identifiers, Wi-Fi names, credentials and pairing material are omitted."
+}
